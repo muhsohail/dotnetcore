@@ -1,0 +1,71 @@
+﻿@page
+@model ERP.Pages.MillView.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Mill</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Mill.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mill.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mill.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mill.Code)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Mill.IsActive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mill.IsActive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mill.Person)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mill.Person.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mill.MangerPerson)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mill.MangerPerson.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mill.CPMPerson)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mill.CPMPerson.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mill.MechanicalPerson)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mill.MechanicalPerson.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Mill.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Mill.City.Id)
+        </dd>*@
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Mill.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

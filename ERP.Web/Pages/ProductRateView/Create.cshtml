@@ -1,0 +1,74 @@
+﻿@page
+@model ERP.Pages.ProductRateView.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Product Rate</h2>
+<hr />
+
+<div class="container">
+    <div class="panel-group">
+        <form method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Product Rate Data Entry</div>
+                <div class="panel-body">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ProductRate.FabricId" class="control-label"></label>
+                            <select asp-for="ProductRate.FabricId" class="form-control" asp-items="ViewBag.FabricId"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ProductRate.AskingRate" class="control-label"></label>
+                            <input asp-for="ProductRate.AskingRate" class="form-control" />
+                            <span asp-validation-for="ProductRate.AskingRate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ProductRate.MinimumRate" class="control-label"></label>
+                            <input asp-for="ProductRate.MinimumRate" class="form-control" />
+                            <span asp-validation-for="ProductRate.MinimumRate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ProductRate.MaximumRate" class="control-label"></label>
+                            <input asp-for="ProductRate.MaximumRate" class="form-control" />
+                            <span asp-validation-for="ProductRate.MaximumRate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Actions</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

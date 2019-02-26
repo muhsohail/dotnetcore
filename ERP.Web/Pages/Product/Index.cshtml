@@ -1,0 +1,66 @@
+﻿@page
+@model ERP.Areas.Application.Pages.Product.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Fabrics</h2>
+<p><a asp-page="Create">Create New</a></p>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Fabric[0].FabricCode.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fabric[0].FabricCode.Code)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Fabric[0].FabricType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Fabric)
+        {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FabricCode.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FabricType.Type)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+
+                @if (item.IsActive)
+                {
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                }
+
+
+                @if (User.IsInRole("Administrator") || User.IsInRole("Editor"))
+                {
+                    if (!item.IsActive)
+                    {
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Undo Delete</a>
+                    }
+
+
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

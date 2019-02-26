@@ -1,0 +1,753 @@
+﻿@page
+@model ERP.Pages.ConsignmentView.EditModel
+
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Consignment order. [@Model.ConsignmentOrder.Status.Name] - [Bar Code: @Model.ConsignmentOrder.BarCode]</h4>
+
+
+<hr />
+
+<div class="alert alert-danger alert-dismissible" role="alert" id="b-navbar-fg">
+    <strong>Oh!</strong> Seems like you did not enter complete data
+</div>
+
+@Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="panel-group">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Mill Details</div>
+            <div class="panel-body">
+
+                <div class="col-md-4">
+                    <div class="input-group">
+                        Mill: <select asp-for="ConsignmentOrder.Mill.Id" class="form-control" asp-items="ViewBag.MillId" disabled="@(Model.IsReadOnly ? "disabled" : null)"></select>
+
+                        <span class="input-group-btn">
+                            <input type="button" value="Load" class="btn btn-default" style="margin-top:20px" id="fetchMillDetails" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrder.Mill.Name" class="control-label"></label>
+                        <input asp-for="ConsignmentOrder.Mill.Name" class="form-control" readonly />
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrder.Mill.CPMPerson.Name" class="control-label"></label>
+                        <input asp-for="ConsignmentOrder.Mill.CPMPerson.Name" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrder.Mill.CPMPerson.PrimaryPhone" class="control-label"></label>
+                        <input asp-for="ConsignmentOrder.Mill.CPMPerson.PrimaryPhone" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrder.Mill.MangerPerson.Name" class="control-label"></label>
+                        <input asp-for="ConsignmentOrder.Mill.MangerPerson.Name" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrder.Mill.MangerPerson.PrimaryPhone" class="control-label"></label>
+                        <input asp-for="ConsignmentOrder.Mill.MangerPerson.PrimaryPhone" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrder.Mill.MechanicalPerson.Name" class="control-label"></label>
+                        <input asp-for="ConsignmentOrder.Mill.MechanicalPerson.Name" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrder.Mill.MechanicalPerson.PrimaryPhone" class="control-label"></label>
+                        <input asp-for="ConsignmentOrder.Mill.MechanicalPerson.PrimaryPhone" class="form-control" readonly />
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">Final Order Made By Pakistan Office and sent to MD</div>
+            <div class="panel-body">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="ConsignmentOrder.Id" />
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].FabricId" class="control-label"></label>
+                        <select asp-for="ConsignmentOrderItems[0].FabricId" class="form-control" asp-items="ViewBag.FabricId" disabled="@(Model.IsReadOnly ? "disabled" : null)"></select>
+                        <span asp-validation-for="ConsignmentOrderItems[0].FabricId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].FabricTitle" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].FabricTitle" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].FabricTitle" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrder.RegionId" class="control-label"></label>
+                        <select asp-for="ConsignmentOrder.RegionId" class="form-control" asp-items="ViewBag.RegionId" disabled="@(Model.IsReadOnly ? "disabled" : null)"></select>
+                        <span asp-validation-for="ConsignmentOrder.RegionId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].Width" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].Width" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].Width" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].Length" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].Length" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].Length" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].GSM" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].GSM" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].GSM" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @if (Model.ConsignmentOrder.Status.Name != "Approved")
+                {
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ConsignmentOrderItems[0].QtyJ" class="control-label"></label>
+                            <input asp-for="ConsignmentOrderItems[0].QtyJ" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                            <span asp-validation-for="ConsignmentOrderItems[0].QtyJ" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ConsignmentOrderItems[0].QtyIJ" class="control-label"></label>
+                            <input asp-for="ConsignmentOrderItems[0].QtyIJ" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                            <span asp-validation-for="ConsignmentOrderItems[0].QtyIJ" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                }
+
+
+
+
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].QtyWMA" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].QtyWMA" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].QtyWMA" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                @if (Model.ConsignmentOrder.Status.Name != "Approved")
+                {
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ConsignmentOrderItems[0].WT" class="control-label"></label>
+                            <input asp-for="ConsignmentOrderItems[0].WT" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                            <span asp-validation-for="ConsignmentOrderItems[0].WT" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+                @if (Model.ConsignmentOrder.Status.Name != "Approved")
+                {
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ConsignmentOrderItems[0].FormatReference" class="control-label"></label>
+                            <input asp-for="ConsignmentOrderItems[0].FormatReference" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                            <span asp-validation-for="ConsignmentOrderItems[0].FormatReference" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ConsignmentOrderItems[0].LayerType" class="control-label"></label>
+                            <input asp-for="ConsignmentOrderItems[0].LayerType" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                            <span asp-validation-for="ConsignmentOrderItems[0].LayerType" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].PaperType" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].PaperType" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].PaperType" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                @*<div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].BarCode" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].BarCode" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].BarCode" class="text-danger"></span>
+                    </div>
+                </div>*@
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].Size" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].Size" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].Size" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentOrderItems[0].Remarks" class="control-label"></label>
+                        <input asp-for="ConsignmentOrderItems[0].Remarks" class="form-control" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                        <span asp-validation-for="ConsignmentOrderItems[0].Remarks" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="button" value="Add" class="btn btn-default" style="margin-top:25px" onclick="addConsignmentOrderLine()" disabled="@(Model.IsReadOnly ? "disabled" : null)" />
+                </div>
+
+            </div>
+
+
+
+            <div class="panel-body">
+                <table class="table table-striped" id="tblConsignmentOrderLines">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Fabric</th>
+                            <th></th>
+                            <th>Region</th>
+                            <th>Width(m)</th>
+                            <th>Length(m)</th>
+                            <th>Msh./</th>
+                            @if (Model.ConsignmentOrder.Status.Name != "Approved")
+                            {
+                                <th>Qty J</th>
+                                <th>Qty U</th>
+
+                            }
+
+                            <th>Qty WMA</th>
+
+                            @if (Model.ConsignmentOrder.Status.Name != "Approved")
+                            {
+                                <th>WT</th>
+                                <th>Format Reference</th>
+                                <th>Single OR Double</th>
+                                <th></th>
+                            }
+                                
+                                <th>Paper Type</th>
+                                @*<th>Bar Code</th>*@
+                                <th>Size</th>
+                                @*<th>Type</th>*@
+                                <th>Remark( paper Type)</th>
+
+                            </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            @if (Model.ConsignmentOrder.Status.Name != "Approved")
+                            {
+
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            }
+
+                            
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            @*<td></td>*@
+                            <td></td>
+
+
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var order in @Model.ConsignmentOrderItems)
+                        {
+
+
+                        <tr>
+
+
+                            <td>
+                                @if (!Model.IsReadOnly)
+                                {
+                                    <input type="checkbox" name="record"><br>
+                                }
+                            </td>
+
+                            <td>@order.FabricTitle</td>
+                            <td>PUF</td>
+                            <td style="display:none">@order.Fabric.Id</td>
+                            <td>Region</td>
+                            <td style="display:none">@Model.ConsignmentOrder.Region.Id</td>
+                            <td>@order.Width</td>
+                            <td>@order.Length</td>
+                            <td>@order.GSM</td>
+
+                            @if (Model.ConsignmentOrder.Status.Name != "Approved")
+                            {
+                                <td>@order.QtyJ</td>
+                                <td>@order.QtyIJ</td>
+
+                            }
+
+                            <td>@order.QtyWMA</td>
+                            @if (Model.ConsignmentOrder.Status.Name != "Approved")
+                            {
+
+                                <td>@order.WT</td>
+                                <td>@order.FormatReference</td>
+                                <td>Single or double</td>
+                                <td>Single</td>
+                            }
+
+
+                            
+                            <td>@order.PaperType</td>
+                            @*<td>@order.BarCode</td>*@
+                            <td>@order.Size</td>
+                            <td>@order.Remarks</td>
+                            <td style="display:none">@order.ConsignmentOrderId</td>
+                            <td style="display:none">@order.Id</td>
+                        </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-danger" id="deleteOrderLine" onclick="deleteConsignmentOrderLine()"disabled="@(Model.IsReadOnly ? "disabled" : null)">Delete</button>
+            </div>
+        </div>
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Comments</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <textarea asp-for="ConsignmentOrder.OrderComments" rows="3" cols="20" class="form-control"disabled="@(Model.IsReadOnly ? "disabled" : null)"> </textarea>
+                </div>
+
+                <div class="form-group">
+                    <table class="table table-striped" id="tblOrderComments">
+                        <thead>
+                            <tr>
+                                <th>Comments</th>
+                                <th>Status</th>
+                                <th>Created By</td>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var comment in @Model.OrderComments)
+                            {
+
+
+                            <tr>
+                                <td>@comment.Comments</td>
+                                <td>@comment.Status.Name</td>
+                                <td>@comment.CreatedBy</td>
+                                <td>@comment.CommentDate</td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Action</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @foreach (var item in @Model.ActionButtons)
+                    {
+                        <button type="button" name="submit" value="Link" class="btn col-lg-4 btn-primary" onclick="_prepareJson('@item.ButtonText')"> @item.ButtonText</button>
+
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#b-navbar-fg").hide();
+        _labels();
+
+        $("#fetchMillDetails").click(function () {
+            _getMillDetails();
+        });
+    });
+
+    function deleteConsignmentOrderLine() {
+        $("#tblConsignmentOrderLines tbody").find('input[name="record"]').each(function () {
+            if ($(this).is(":checked")) {
+                $(this).parents("tr").remove();
+            }
+        });
+    }
+
+    function _labels() {
+        $("label[for='ConsignmentOrder_Mill_CPMPerson_Name']").text("CPM Name");
+        $("label[for='ConsignmentOrder_Mill_CPMPerson_PrimaryPhone']").text("CPM Phone");
+        $("label[for='ConsignmentOrder_Mill_MangerPerson_Name']").text("Manager Name");
+        $("label[for='ConsignmentOrder_Mill_MangerPerson_PrimaryPhone']").text("Manager Phone");
+        $("label[for='ConsignmentOrder_Mill_MechanicalPerson_Name']").text("Mechanical Name");
+        $("label[for='ConsignmentOrder_Mill_MechanicalPerson_PrimaryPhone']").text("Mechanical Phone");
+    }
+
+    function _getMillDetails() {
+
+        $.ajax({
+            type: "GET",
+            url: "/OrderView/Create?handler=Mills",
+            data: "millCode=" + $("#ConsignmentOrder_Mill_Id option:selected").text(),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+
+                $("#MillName").val(response.name);
+
+                $("#CPMPersonName").val(response.cpmPerson.name);
+                $("#CPMPersonPhone").val(response.cpmPerson.primaryPhone);
+
+
+                $("#ManagerPersonName").val(response.mangerPerson.name);
+                $("#ManagerPersonPhone").val(response.mangerPerson.primaryPhone);
+
+                $("#MechanicalName").val(response.mechanicalPerson.name);
+                $("#MechanicalPhone").val(response.mechanicalPerson.primaryPhone);
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+
+    function _prepareJson(buttonText) {
+
+        if (buttonText == "Ship") {
+
+            var consignmentViewModel = {
+                "MillJson": null,
+                "ConsignmentOrderJson": null,
+                "buttonText": buttonText,
+                "RegionJson": null,
+                "OrderComments": null,
+                "ConsignmentOrderId": '@Model.ConsignmentOrder.Id'
+            };
+
+        }
+        else {
+            var jsonOrder = _consignmentOrderDetails();
+            var millId = $("#ConsignmentOrder_Mill_Id option:selected").val();
+
+            var regionId = $("#ConsignmentOrder_RegionId option:selected").val();
+            var orderComments = $("#ConsignmentOrder_OrderComments").val();
+
+            var consignmentViewModel = {
+                "MillJson": millId,
+                "ConsignmentOrderJson": jsonOrder,
+                "buttonText": buttonText,
+                "RegionJson": regionId,
+                "OrderComments": orderComments
+            };
+        }
+
+
+        $.ajax({
+            url: "/ConsignmentView/Edit?handler=UpdateConsignmentOrder",
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: JSON.stringify(consignmentViewModel)
+        })
+            .done(function (result) {
+                window.location.href = '/ConsignmentView/Index';
+            });
+    }
+
+    function _consignmentOrderDetails() {
+
+        var rowLength = $("#tblConsignmentOrderLines tbody tr").length;
+        var rows = $("#tblConsignmentOrderLines tbody tr");
+        var arr = [];
+        if (rowLength == 0) {
+            //showToastrError("Please Add Soil Details", "Missing Data");
+            //return false;
+        }
+        else {
+            for (i = 0; i < rowLength; i++) {
+                var FabricTitle = rows[i].cells[1].innerHTML;
+                var fabricId = rows[i].cells[3].innerHTML;
+                var regionId = rows[i].cells[5].innerHTML;
+                var width = rows[i].cells[6].innerHTML;
+                var length = rows[i].cells[7].innerHTML;
+                var gsm = rows[i].cells[8].innerHTML;
+                var qtyJ = rows[i].cells[9].innerHTML;
+                var qtyIJ = rows[i].cells[10].innerHTML;
+                var qtyWMA = rows[i].cells[11].innerHTML;
+                var wt = rows[i].cells[12].innerHTML;
+                var formatReference = rows[i].cells[13].innerHTML;
+                var layerType = rows[i].cells[14].innerHTML;
+                var paperType = rows[i].cells[16].innerHTML;
+                //var barCode = rows[i].cells[17].innerHTML;
+                var size = rows[i].cells[17].innerHTML;
+                var remarks = rows[i].cells[18].innerHTML;
+
+                //if (rows[i].cells.length == 22)
+                //    var consignmentOrderId = rows[i].cells[20].innerHTML;
+
+                //if (rows[i].cells.length == 22)
+                //    var id = rows[i].cells[21].innerHTML;
+
+                if (rows[i].cells.length == 22) {
+                    arr.push({
+                        //Id: fabricId,
+                        FabricTitle: FabricTitle,
+                        Width: width,
+                        length: length,
+                        GSM: gsm,
+                        QtyJ: qtyJ,
+                        QtyIJ: qtyIJ,
+                        QtyWMA: qtyWMA,
+                        WT: wt,
+                        FormatReference: formatReference,
+                        LayerType: layerType,
+                        //layerType: layerType,
+                        PaperType: paperType,
+                        //BarCode: barCode,
+                        Size: size,
+                        FabricType: "",
+                        Remarks: remarks,
+                        FabricId: fabricId,
+                        //MillId: fabricId,
+                        RegionId: regionId,
+                        ConsignmentOrderId: rows[i].cells[20].innerHTML,
+                        Id: rows[i].cells[21].innerHTML
+
+                    });
+                }
+                else {
+
+                    arr.push({
+                        //Id: fabricId,
+                        FabricTitle: FabricTitle,
+                        Width: width,
+                        length: length,
+                        GSM: gsm,
+                        QtyJ: qtyJ,
+                        QtyIJ: qtyIJ,
+                        QtyWMA: qtyWMA,
+                        WT: wt,
+                        FormatReference: formatReference,
+                        LayerType: layerType,
+                        //layerType: layerType,
+                        PaperType: paperType,
+                        //BarCode: barCode,
+                        Size: size,
+                        FabricType: "",
+                        Remarks: remarks,
+                        FabricId: fabricId,
+                        //MillId: fabricId,
+                        RegionId: regionId,
+                        ConsignmentOrderId:"@Model.ConsignmentOrder.Id"
+
+                    });
+                }
+
+            }
+
+            var jsonOrder = JSON.stringify(arr);
+            //$("#ConsignmentOrderJson").val(jsonOrder);
+            //var tab = $('#tblConsignmentOrderLines')
+            //row = tab.find('tr').eq(1)[0];
+
+            return jsonOrder;
+        }
+    }
+
+    function addConsignmentOrderLine() {
+
+        //var fabricTxt = $("#ConsignmentViewModel_ConsignmentOrder_FabricId option:selected").text();
+        var fabricTxt = $("#ConsignmentOrderItems_0__FabricTitle").val();
+        var fabricId = $("#ConsignmentOrderItems_0__FabricId option:selected").val();
+        var regionTxt = $("#ConsignmentOrder_RegionId option:selected").text();
+        var regionId = $("#ConsignmentOrder_RegionId option:selected").val();
+
+        var width = $("#ConsignmentOrderItems_0__Width").val();
+        var length = $("#ConsignmentOrderItems_0__Length").val();
+        var gsm = $("#ConsignmentOrderItems_0__GSM").val();
+        var qtyJ = $("#ConsignmentOrderItems_0__QtyJ").val();
+        var qtyIJ = $("#ConsignmentOrderItems_0__QtyIJ").val();
+        var qtyWMA = $("#ConsignmentOrderItems_0__QtyWMA").val();
+        var wt = $("#ConsignmentOrderItems_0__WT").val();
+        var formatReference = $("#ConsignmentOrderItems_0__FormatReference").val();
+        var layerType = $("#ConsignmentOrderItems_0__LayerType").val();
+        var paperType = $("#ConsignmentOrderItems_0__PaperType").val();
+        //var barCode = $("#ConsignmentOrderItems_0__BarCode").val();
+        var size = $("#ConsignmentOrderItems_0__Size").val();
+        var remarks = $("#ConsignmentOrderItems_0__Remarks").val();
+
+
+        if (_allowAdd(fabricTxt, regionTxt, width, length, gsm, qtyJ, qtyIJ, qtyWMA, wt, formatReference, layerType, paperType, size, remarks)) {
+            $("#b-navbar-fg").hide();
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + fabricTxt +
+                "</td><td>" + 'PUF' +
+                "</td><td style='display:none'>" + fabricId +
+                "</td><td>" + regionTxt +
+                "</td><td style='display:none'>" + regionId +
+                "</td><td>" + width +
+                "</td><td>" + length +
+                "</td><td>" + gsm +
+                "</td><td>" + qtyJ +
+                "</td><td>" + qtyIJ +
+                "</td><td>" + qtyWMA +
+                "</td><td>" + wt +
+                "</td><td>" + formatReference +
+                "</td><td>" + layerType +
+                "</td><td>" + 'Single' +
+                "</td><td>" + paperType +
+                //"</td><td>" + barCode +
+                "</td><td>" + size +
+                "</td><td>" + remarks +
+                "</td></tr>";
+
+
+            $("#tblConsignmentOrderLines tbody").append(markup);
+
+            resetConsignmentOrderItemDetails();
+        }
+        else {
+            $("#b-navbar-fg").show()
+        }
+    }
+    function _allowAdd(a, b, c, d, e, f, g, h, i, j, k, l, m, n) {
+
+        var canAdd = false;
+        if ((a != undefined && a != null && a != "")
+            && (b != undefined && b != null && b != "")
+            && (c != undefined && c != null && c != "")
+            && (d != undefined && d != null && d != "" && !isNaN(d))
+            && (e != undefined && e != null && e != "")
+            && (f != undefined && f != null && f != "")
+            && (g != undefined && g != null && g != "")
+            && (h != undefined && h != null && h != "")
+            && (i != undefined && i != null && i != "")
+            && (j != undefined && j != null && j != "")
+            && (k != undefined && k != null && k != "")
+            && (l != undefined && l != null && l != "")
+            && (m != undefined && m != null && m != "")
+            && (n != undefined && n != null && n != "")) {
+            canAdd = true;
+        }
+        else {
+            canAdd = false;
+        }
+        return canAdd;
+    }
+
+    function resetConsignmentOrderItemDetails() {
+        $("#ConsignmentOrderItems_0__Width").val('');
+        $('#ConsignmentOrderItems_0__Length').val('');
+        $("#ConsignmentOrderItems_0__GSM").val('');
+        $("#ConsignmentOrderItems_0__QtyJ").val('');
+        $("#ConsignmentOrderItems_0__QtyIJ").val('');
+        $("#ConsignmentOrderItems_0__QtyWMA").val('');
+        $("#ConsignmentOrderItems_0__WT").val('');
+        $("#ConsignmentOrderItems_0__FormatReference").val('');
+        $("#ConsignmentOrderItems_0__LayerType").val('');
+        $("#ConsignmentOrderItems_0__PaperType").val('');
+        //$("#ConsignmentOrderItems_0__BarCode").val('');
+        $("#ConsignmentOrderItems_0__Size").val('');
+        $("#ConsignmentOrderItems_0__Remarks").val('');
+
+    }
+
+</script>

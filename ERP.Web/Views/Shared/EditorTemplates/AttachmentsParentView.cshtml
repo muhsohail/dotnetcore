@@ -1,0 +1,142 @@
+﻿@model Models.AttachmentsModel
+@using System.Text.RegularExpressions;
+
+
+
+<div id="attachmentsDivParent" class="form-horizontal">
+
+	@*@Html.Action("LoadAttachmentsView", "LicenseHome", new { Area = "", canUpload = Model.CanUpload, canDelete = Model.CanDelete, canDownload = Model.CanDownload})*@
+    <a asp-controller="ERPHome" asp-action="LoadAttachmentsView" asp-route-canUpload="@Model.CanUpload"asp-route-CanDelete="@Model.CanDelete"asp-route-CanDownload="@Model.CanUpload">Speaker Evaluations</a>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+		$(document).ready(function () {
+
+            $(document).on('click', '#btnAttachmentDelete', function (e) {
+
+                var id = $(this).parents('tr').data('id');
+                var transactionId = $(this).parents('tr').data('transactionid');
+				var applicationtypeid = $(this).parents('tr').data('applicationtypeid');
+				var attachmentTypeId = $(this).parents('tr').data('attachmentTypeId');
+                var fileData = new FormData();
+                // Adding one more key to FormData object
+                fileData.append('AttachmentId', id);
+                fileData.append('TransactionId', transactionId);
+				fileData.append('applicationtypeid', applicationtypeid);
+				fileData.append('attachmentTypeId', attachmentTypeId);
+                var url = "/" + getAppPath();
+                url += '/Main/AttachmentDelete';
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        $("#attachmentsDiv").load(" #attachmentsDiv");
+
+                        if (result.status.includes('Error,')) {
+                            showToastrError(result.status, "Upload Error");
+                        } else {
+                            showToastrSuccess(result.status);
+                        }
+                    },
+                    error: function (err) {
+                        showToastrError(err.statusText, "Upload Error");
+                    }
+                });
+
+            });
+
+          
+			$(document).on('change', '.file-upload', function (e) {
+
+				var ext = this.value.match(/\.([^\.]+)$/)[1];
+				//switch (ext.toLowerCase()) {
+				//    case 'jpg':
+				//    case 'jpeg':
+				//    case 'bmp':
+				//    case 'png':
+				//    case 'tif':
+				//    case 'tiff':
+				//    case 'docx':
+				//    case 'doc':
+				//    case 'pdf':
+				//    case 'xls':
+				//    case 'xlsx':
+				//        // showToastrSuccess();
+				//        break;
+				//    default:
+				//        showToastrError('Invalid File', 'Upload Error');
+				//        // alert('not allowed');
+				//        //this.value = '';
+				//        e.preventDefault();
+				//        return false;
+				//}
+
+
+
+				// Checking whether FormData is available in browser
+				if (window.FormData !== undefined) {
+					var id = $(this).parents('tr').data('id');
+					var transactionId = $(this).parents('tr').data('transactionid');
+					var applicationtypeid = $(this).parents('tr').data('applicationtypeid');
+					var attachmentTypeId = $(this).parents('tr').data('attachmentTypeId');
+
+					var fileUpload = $(this).get(0);
+					var files = fileUpload.files;
+					var fileName = '';
+
+					// Create FormData object
+					var fileData = new FormData();
+
+					// Looping over all files and add it to FormData object
+					for (var i = 0; i < files.length; i++) {
+						fileData.append(files[i].name, files[i]);
+						fileName = files[i].name;
+					}
+
+					// Adding one more key to FormData object
+					fileData.append('AttachmentId', id);
+					fileData.append('TransactionId', transactionId);
+					fileData.append('applicationtypeid', applicationtypeid);
+					fileData.append('attachmentTypeId', attachmentTypeId);
+
+					var url = "/" + getAppPath();
+					url += '/Main/UploadFiles';
+					$.ajax({
+						url: url,
+						type: "POST",
+						contentType: false, // Not to set any content header
+						processData: false, // Not to process data
+						data: fileData,
+						success: function (result) {
+							$("#attachmentsDiv").html(result);
+							//if (result.status.includes('Error,')) {
+							//	showToastrError(result.status, "Upload Error");
+							//}
+							showToastrSuccess("Success", "Upload");
+						},
+						error: function (err) {
+							showToastrError(err.statusText, "Upload Error");
+						}
+					});
+				} else {
+					showToastrError("Error", "FormData is not supported");
+				}
+			});
+
+		});
+
+		function getAppPath() {
+			var pathArray = location.pathname.split('/');
+			var appPath = "";// "/";
+			//for (var i = 1; i < pathArray.length - 1; i++) {
+			appPath = pathArray[1];
+			//}
+			return appPath;
+		}
+
+	});
+</script>

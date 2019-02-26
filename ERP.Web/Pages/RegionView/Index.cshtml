@@ -1,0 +1,68 @@
+﻿@page
+@model ERP.Pages.RegionView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Regions</h2>
+
+<p>
+    <a asp-page="Create">Create New Region</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Region[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region[0].Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region[0].RegionNo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Region) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionNo)
+            </td>
+
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+
+                @if (item.IsActive)
+                {
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                }
+
+
+                @if (User.IsInRole("Administrator") || User.IsInRole("Editor"))
+                {
+                    if (!item.IsActive)
+                    {
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Undo Delete</a>
+                    }
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

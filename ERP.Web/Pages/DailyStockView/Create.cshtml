@@ -1,0 +1,176 @@
+﻿@page
+@model ERP.Pages.DailyStockView.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Daily stock and expected buyer for each size</h2>
+<hr />
+
+<div class="container">
+    <div class="panel-group">
+        <form method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Daily Stock Data Entry</div>
+                <div class="panel-body">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.FabricId" class="control-label"></label>
+                            <select asp-for="DailyStock.FabricId" class="form-control" asp-items="ViewBag.FabricId"></select>
+                            <span asp-validation-for="DailyStock.FabricId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.MillId" class="control-label"></label>
+                            <select asp-for="DailyStock.MillId" class="form-control" asp-items="ViewBag.MillId"></select>
+                            <span asp-validation-for="DailyStock.MillId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.DateReceived" class="control-label"></label>
+                            <input asp-for="DailyStock.DateReceived" class="form-control" />
+                            <span asp-validation-for="DailyStock.DateReceived" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.WTOnePiece" class="control-label"></label>
+                            <input asp-for="DailyStock.WTOnePiece" class="form-control" />
+                            <span asp-validation-for="DailyStock.WTOnePiece" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.Amount" class="control-label"></label>
+                            <input asp-for="DailyStock.Amount" class="form-control" />
+                            <span asp-validation-for="DailyStock.Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.Code" class="control-label"></label>
+                            <input asp-for="DailyStock.Code" class="form-control" />
+                            <span asp-validation-for="DailyStock.Code" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.TTLWT" class="control-label"></label>
+                            <input asp-for="DailyStock.TTLWT" class="form-control" />
+                            <span asp-validation-for="DailyStock.TTLWT" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.AskingRate" class="control-label"></label>
+                            <input asp-for="DailyStock.AskingRate" class="form-control" />
+                            <span asp-validation-for="DailyStock.AskingRate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.VarianceInWidth" class="control-label"></label>
+                            <input asp-for="DailyStock.VarianceInWidth" class="form-control" />
+                            <span asp-validation-for="DailyStock.VarianceInWidth" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.VarianceInLength" class="control-label"></label>
+                            <input asp-for="DailyStock.VarianceInLength" class="form-control" />
+                            <span asp-validation-for="DailyStock.VarianceInLength" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.VarianceInGSM" class="control-label"></label>
+                            <input asp-for="DailyStock.VarianceInGSM" class="form-control" />
+                            <span asp-validation-for="DailyStock.VarianceInGSM" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.Width" class="control-label"></label>
+                            <input asp-for="DailyStock.Width" class="form-control" />
+                            <span asp-validation-for="DailyStock.Width" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.WidthInches" class="control-label"></label>
+                            <input asp-for="DailyStock.WidthInches" class="form-control" />
+                            <span asp-validation-for="DailyStock.WidthInches" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.Length" class="control-label"></label>
+                            <input asp-for="DailyStock.Length" class="form-control" />
+                            <span asp-validation-for="DailyStock.Length" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="DailyStock.GSM" class="control-label"></label>
+                            <input asp-for="DailyStock.GSM" class="form-control" />
+                            <span asp-validation-for="DailyStock.GSM" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">ACTIONS</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @foreach (var item in @Model.ActionButtons)
+                        {
+                            <input type="submit" name="submit" value='@item.ButtonText' class="btn col-lg-6 btn-primary" />
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to Daily Stock List</a>
+</div>
+

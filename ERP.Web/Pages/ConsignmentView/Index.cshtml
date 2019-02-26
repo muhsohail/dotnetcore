@@ -1,0 +1,494 @@
+﻿@page
+@model ERP.Pages.ConsignmentView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Select(x => x.FabricCode).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Select(x => x.Count).ToList());
+    var labels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Select(x => x.FabricCode).ToArray());
+
+    var Created = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Where(x => x.FabricCode == "Created").Select(x => x.Count).ToList());
+    var Submitted = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Where(x => x.FabricCode == "Submitted").Select(x => x.Count).ToList());
+    var Approved = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Where(x => x.FabricCode == "Approved").Select(x => x.Count).ToList());
+
+    var Rejected = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Where(x => x.FabricCode == "Rejected").Select(x => x.Count).ToList());
+
+    var Completed = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Where(x => x.FabricCode == "Completed").Select(x => x.Count).ToList());
+
+    var Close = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Where(x => x.FabricCode == "Close").Select(x => x.Count).ToList());
+
+    var Shipped = Newtonsoft.Json.JsonConvert.SerializeObject(Model.OrdersByStatus.Where(x => x.FabricCode == "Shipped").Select(x => x.Count).ToList());
+
+}
+
+<h2>List of Consignment Orders [@Model.ConsignmentOrder.Count]</h2>
+
+<p>
+    <a asp-page="Create">Create New Consignment Order</a>
+</p>
+
+<ul class="nav nav-tabs tab-nav-right" role="tablist">
+    <li role="presentation" class="active"><a href="#AllOrdersEnteries" data-toggle="tab">All Orders</a></li>
+    <li role="presentation"><a href="#ApprovedEnteries" data-toggle="tab">Approved orders (Not sent to China)</a></li>
+    <li role="presentation"><a href="#ShippedEnteries" data-toggle="tab">Shipped orders (Sent to China)</a></li>
+</ul>
+
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane animated fadeIn active" id="AllOrdersEnteries">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ConsignmentOrder)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mill.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Region.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status.Name)
+                        </td>
+                        <td>
+                            @if (item.OrderDate.HasValue)
+                            {
+                                var _orderDate = item.OrderDate.Value.ToString("yyyy-MM-dd hh:mm:ss");
+                                @Html.DisplayFor(modelItem => _orderDate)
+                            }
+
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrWhiteSpace(item.CreatedBy))
+                            {
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                            }
+                            else
+                            {
+                                var _createdBy = "Administrator";
+                                @Html.DisplayFor(modelItem => _createdBy)
+                            }
+
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+
+                            @if (item.IsActive)
+                            {
+                                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                            }
+
+
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Editor"))
+                            {
+                                if (!item.IsActive)
+                                {
+                                    <a asp-page="./Delete" asp-route-id="@item.Id">Undo Delete</a>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="container">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Consignment Orders By Status</div>
+                    <div class="panel-body">
+
+                        <div class="chart-container">
+                            <canvas id="chart" style="width:100%; height:500px"></canvas>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div role="tabpanel" class="tab-pane animated fadeIn" id="ApprovedEnteries">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fabric Type</th>
+                    <th>Width (M)</th>
+                    <th>Width (L)</th>
+                    <th>Length (M)</th>
+                    <th>GSM</th>
+                    <th>Qty (WMA)</th>
+                    <th>Paper Type/</th>
+                    <th>Bar Code</th>
+                    <th>Size</th>
+                    <th>Paper Type</th>
+                    <th>Remark(Paper Type)</th>
+
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var order in @Model.ConsignmentApprovedOrderItems)
+                {
+
+
+                    <tr>
+                        <td>@order.FabricTitle</td>
+                        <td>@order.Width</td>
+                        <td>@order.Width</td>
+                        <td>@order.Length</td>
+                        <td>@order.GSM</td>
+                        <td>@order.QtyWMA</td>
+                        <td>@order.PaperType</td>
+                        <td>@Model.ConsignmentOrder[0].BarCode</td>
+                        <td>@order.Size</td>
+                        <td>@order.PaperType</td>
+                        <td>@order.Remarks</td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane animated fadeIn" id="ShippedEnteries">
+
+        <h3>Felts</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fabric Type</th>
+                    <th>Width (M)</th>
+                    <th>Width (L)</th>
+                    <th>Length (M)</th>
+                    <th>GSM</th>
+                    <th>Qty (WMA)</th>
+                    <th>Paper Type/</th>
+                    <th>Bar Code</th>
+                    <th>Size</th>
+                    <th>Paper Type</th>
+                    <th>Remark(Paper Type)</th>
+
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var order in @Model.ConsignmentOrderItemsFelt)
+                {
+
+
+                    <tr>
+                        <td>@order.FabricTitle</td>
+                        <td>@order.Width</td>
+                        <td>@order.Width</td>
+                        <td>@order.Length</td>
+                        <td>@order.GSM</td>
+                        <td>@order.QtyWMA</td>
+                        <td>@order.PaperType</td>
+                        <td>@Model.ConsignmentOrder[0].BarCode</td>
+                        <td>@order.Size</td>
+                        <td>@order.PaperType</td>
+                        <td>@order.Remarks</td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+        <hr />
+
+        <h3>Forming Wire</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fabric Type</th>
+                    <th>Width (M)</th>
+                    <th>Width (L)</th>
+                    <th>Length (M)</th>
+                    <th>GSM</th>
+                    <th>Qty (WMA)</th>
+                    <th>Paper Type/</th>
+                    <th>Bar Code</th>
+                    <th>Size</th>
+                    <th>Paper Type</th>
+                    <th>Remark(Paper Type)</th>
+
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var order in @Model.ConsignmentOrderItemsFormingWire)
+                {
+
+
+                    <tr>
+                        <td>@order.FabricTitle</td>
+                        <td>@order.Width</td>
+                        <td>@order.Width</td>
+                        <td>@order.Length</td>
+                        <td>@order.GSM</td>
+                        <td>@order.QtyWMA</td>
+                        <td>@order.PaperType</td>
+                        <td>@Model.ConsignmentOrder[0].BarCode</td>
+                        <td>@order.Size</td>
+                        <td>@order.PaperType</td>
+                        <td>@order.Remarks</td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+        <hr />
+
+        <h3>Dry Screen</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fabric Type</th>
+                    <th>Width (M)</th>
+                    <th>Width (L)</th>
+                    <th>Length (M)</th>
+                    <th>GSM</th>
+                    <th>Qty (WMA)</th>
+                    <th>Paper Type/</th>
+                    <th>Bar Code</th>
+                    <th>Size</th>
+                    <th>Paper Type</th>
+                    <th>Remark(Paper Type)</th>
+
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var order in @Model.ConsignmentOrderItemsDryScreen)
+                {
+
+
+                    <tr>
+                        <td>@order.FabricTitle</td>
+                        <td>@order.Width</td>
+                        <td>@order.Width</td>
+                        <td>@order.Length</td>
+                        <td>@order.GSM</td>
+                        <td>@order.QtyWMA</td>
+                        <td>@order.PaperType</td>
+                        <td>@Model.ConsignmentOrder[0].BarCode</td>
+                        <td>@order.Size</td>
+                        <td>@order.PaperType</td>
+                        <td>@order.Remarks</td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+
+<script>
+
+            $(function () {
+    var chartName = "chart";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabels),
+                datasets: [{
+                    label: "No. of Consignment Orders",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValues)
+    }]
+            };
+
+var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+}],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+    },
+    title: {
+        display: true,
+        text: 'Consignment Orders By Status'
+    },
+    legend: { display: false }
+            };
+
+       var myChart = new  Chart(ctx, {
+                options: options,
+                data: data,
+                type:'bar'
+
+            });
+    });
+    $(document).ready(function () {
+
+        _labels();
+
+    });
+
+    function _labels() {
+        // TODO Improve this part
+        // May be have to use MVC6 Grid
+        // CHeck later
+
+        $("table thead tr th").each(function (index) {
+
+            if (index == 0)
+                $(this).html("Mill Name");
+            else if (index == 1)
+                $(this).html("Region Name");
+            else if (index == 2)
+                $(this).html("Consignment Order Status");
+
+            else if (index == 3)
+                $(this).html("Order Date");
+            else if (index == 4)
+                $(this).html("Created By");
+            else if (index == 5)
+                $(this).html("Actions");
+        });
+
+
+    }
+</script>

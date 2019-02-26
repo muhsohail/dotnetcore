@@ -1,0 +1,52 @@
+﻿@page
+@model ERP.Pages.RegionView.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Region</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Region.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Region.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Region.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Region.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Region.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Region.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region.RegionNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Region.RegionNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region.IsActive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Region.IsActive)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Region.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

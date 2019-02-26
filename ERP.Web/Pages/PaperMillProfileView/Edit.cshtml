@@ -1,0 +1,589 @@
+﻿@page
+@model ERP.Pages.PaperMillProfileView.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<hr />
+<h2>Edit Paper Mill Profile</h2>
+<hr />
+
+<div class="alert alert-danger alert-dismissible" role="alert" id="b-navbar-fg">
+    <strong>Oh!</strong> Seems like you did not enter complete data
+</div>
+
+@Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="panel-group">
+        <div class="panel panel-primary">
+            <div class="panel-heading">EDIT MILL DETAILS</div>
+            <div class="panel-body">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        Mill: <select asp-for="PaperMillProfile.Mill.Id" class="form-control" asp-items="ViewBag.MillId"></select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="col-md-4">
+                        <input type="button" value="Load" class="btn btn-default" id="fetchMillDetails" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfile.Mill.Name" class="control-label"></label>
+                        <input asp-for="PaperMillProfile.Mill.Name" class="form-control" readonly />
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfile.Mill.CPMPerson.Name" class="control-label"></label>
+                        <input asp-for="PaperMillProfile.Mill.CPMPerson.Name" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfile.Mill.CPMPerson.PrimaryPhone" class="control-label"></label>
+                        <input asp-for="PaperMillProfile.Mill.CPMPerson.PrimaryPhone" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfile.Mill.MangerPerson.Name" class="control-label"></label>
+                        <input asp-for="PaperMillProfile.Mill.MangerPerson.Name" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfile.Mill.MangerPerson.PrimaryPhone" class="control-label"></label>
+                        <input asp-for="PaperMillProfile.Mill.MangerPerson.PrimaryPhone" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfile.Mill.MechanicalPerson.Name" class="control-label"></label>
+                        <input asp-for="PaperMillProfile.Mill.MechanicalPerson.Name" class="form-control" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfile.Mill.MechanicalPerson.PrimaryPhone" class="control-label"></label>
+                        <input asp-for="PaperMillProfile.Mill.MechanicalPerson.PrimaryPhone" class="form-control" readonly />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">EDIT MILL PROFILE DETAILS</div>
+            <div class="panel-body">
+
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="PaperMillProfile.Id" />
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfile.RegionId" class="control-label"></label>
+                        <select asp-for="PaperMillProfile.RegionId" class="form-control" asp-items="ViewBag.RegionId"></select>
+                        <span asp-validation-for="PaperMillProfile.RegionId" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfileDetails[0].FabricId" class="control-label"></label>
+                        <select asp-for="PaperMillProfileDetails[0].FabricId" class="form-control" asp-items="ViewBag.FabricId"></select>
+                        <span asp-validation-for="PaperMillProfileDetails[0].FabricId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfileDetails[0].Width" class="control-label"></label>
+                        <input asp-for="PaperMillProfileDetails[0].Width" class="form-control" />
+                        <span asp-validation-for="PaperMillProfileDetails[0].Width" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfileDetails[0].Length" class="control-label"></label>
+                        <input asp-for="PaperMillProfileDetails[0].Length" class="form-control" />
+                        <span asp-validation-for="PaperMillProfileDetails[0].Length" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfileDetails[0].GSM" class="control-label"></label>
+                        <input asp-for="PaperMillProfileDetails[0].GSM" class="form-control" />
+                        <span asp-validation-for="PaperMillProfileDetails[0].GSM" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfileDetails[0].SM" class="control-label"></label>
+                        <input asp-for="PaperMillProfileDetails[0].SM" class="form-control" />
+                        <span asp-validation-for="PaperMillProfileDetails[0].SM" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfileDetails[0].ConsPcsYear" class="control-label"></label>
+                        <input asp-for="PaperMillProfileDetails[0].ConsPcsYear" class="form-control" />
+                        <span asp-validation-for="PaperMillProfileDetails[0].ConsPcsYear" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="PaperMillProfileDetails[0].NextOrder" class="control-label"></label>
+                        <input asp-for="PaperMillProfileDetails[0].NextOrder" class="form-control" />
+                        <span asp-validation-for="PaperMillProfileDetails[0].NextOrder" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="button" value="Add" class="btn btn-default" onclick="_add()" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-body">
+                <table class="table table-striped" id="tblMillProfileDetails">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Region</th>
+                            <th>Fabric</th>
+                            <th>Width(m)</th>
+                            <th>Length(m)</th>
+                            <th>Msh./ GSM</th>
+                            <th>Rtae/KGM/SM</th>
+                            <th>Amount Each Piece</th>
+                            <th>Cons.Pcs/ year</th>
+                            <th>Cons.Amt/ year</th>
+                            <th>Next Order.</th>
+                            <th>Next Order Amt.</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td>@Model.PaperMillProfile.TotalAmount</td>
+                            <td>@Model.PaperMillProfile.TotalPCSCount</td>
+                            <td>@Model.PaperMillProfile.TotalConsAmtPerYear</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var detail in @Model.PaperMillProfileDetails)
+                        {
+                            <tr>
+                                <td><input type="checkbox" name="record"><br></td>
+                                <td>@Model.PaperMillProfile.Region.Name</td>
+                                <td style="display:none">@Model.PaperMillProfile.Region.Id</td>
+                                <td>@detail.Fabric.Code</td>
+                                <td style="display:none">@detail.Fabric.Id</td>
+                                <td>@detail.Width</td>
+                                <td>@detail.Length</td>
+                                <td>@detail.GSM</td>
+                                <td>@detail.SM</td>
+                                <td>@detail.AmountEachPiece</td>
+                                <td>@detail.ConsPcsYear</td>
+                                <td>@detail.ConsAmtYear</td>
+                                <td>@detail.NextOrder</td>
+                                <td>@detail.NextOrderCount</td>
+                                <td style="display:none">@detail.PaperMillProfileId</td>
+                                <td style="display:none">@detail.Id</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-danger" id="deleteOrderLine" onclick="deleteConsignmentOrderLine()">Delete</button>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">ACTIONS</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @foreach (var item in @Model.ActionButtons)
+                    {
+                        <button type="button" name="submit" value="Link" class="btn col-lg-4 btn-primary" onclick="_prepareJson('@item.ButtonText')"> @item.ButtonText</button>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#b-navbar-fg").hide();
+        getProductRate(); // TODO EDIT
+        $("#fetchMillDetails").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/PaperMillProfileView/Create?handler=Mills",
+                data: "millCode=" + $("#PaperMillProfile_Mill_Id option:selected").text(),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+
+                    $("#MillName").val(response.name);
+
+                    $("#CPMPersonName").val(response.cpmPerson.name);
+                    $("#CPMPersonPhone").val(response.cpmPerson.primaryPhone);
+
+
+                    $("#ManagerPersonName").val(response.mangerPerson.name);
+                    $("#ManagerPersonPhone").val(response.mangerPerson.primaryPhone);
+
+                    $("#MechanicalName").val(response.mechanicalPerson.name);
+                    $("#MechanicalPhone").val(response.mechanicalPerson.primaryPhone);
+
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+
+        });
+
+        // on dropdown value change
+        $("#PaperMillProfileDetails_0__FabricId").change(function () {
+            //poplateFabricDesc();
+            getProductRate();
+        });
+
+    });
+
+    function getProductRate() {
+        $.ajax({
+            type: "GET",
+            url: "/PaperMillProfileView/Edit?handler=ProductRate",
+            data: "fabricId=" + $("#PaperMillProfileDetails_0__FabricId option:selected").val(),
+
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+                $("#PaperMillProfileDetails_0__SM").val(response);
+            },
+
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+
+    function poplateFabricDesc() {
+
+        $.ajax({
+            type: "GET",
+            url: "/ConsignmentView/Create?handler=FabricDescription",
+            data: "faricId=" + $("#PaperMillProfileDetails_0__FabricId option:selected").val(),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+
+                $("#PaperMillProfileDetails_0__SM").val(response);
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+
+    function _empty(a, b, c, d, e, f, g, h, i, j) {
+        if ((a == undefined || a == null || a == "")
+            && (b == undefined || b == null | b == "")
+            && (c == undefined || c == null | c == "")
+            && (d == undefined || d == null | d == "")
+            && (e == undefined || e == null | e == "")
+            && (f == undefined || f == null | f == "")
+            && (g == undefined || g == null | g == "")
+            && (h == undefined || h == null | h == "")
+            && (i == undefined || i == null | i == "")
+            && (j == undefined || j == null | j == ""))
+            return true;
+        else
+            return false;
+    }
+
+    function _allowAdd(a, b, c, d, e) {
+
+        var canAdd = false;
+        if ((a != undefined && a != null && a != "")
+            && (b != undefined && b != null && b != "")
+            && (c != undefined && c != null && c != "")
+            && (d != undefined && d != null && d != "" && !isNaN(d))
+            && (e != undefined && e != null && e != "")) {
+            canAdd = true;
+        }
+        else {
+            canAdd = false;
+        }
+        return canAdd;
+    }
+
+    function _reset() {
+
+
+        $("#PaperMillProfileDetails_0__ Width").val('');
+        $('#PaperMillProfileDetails_0__Length').val('');
+        $("#PaperMillProfileDetails_0__GSM").val('');
+        //$("#PaperMillProfileDetails_0__SM").val('');
+        $("#PaperMillProfileDetails_0__AmountEachPiece").val('');
+        $("#PaperMillProfileDetails_0__ConsPcsYear").val('');
+        $("#PaperMillProfileDetails_0__ConsAmtYear").val('');
+        $("#PaperMillProfileDetails_0__NextOrder").val('');
+        $("#PaperMillProfileDetails_0__NextOrderCount").val('');
+    }
+
+    function _prepareJson(btnText) {
+
+        if (btnText.toLowerCase() == 'cancel')
+            _cancel();
+        else {
+            var jsonOrder = _millProfileDetails();
+            var millId = $("#PaperMillProfile_Mill_Id option:selected").val();
+            var regionId = $("#PaperMillProfile_RegionId option:selected").val();
+
+            var paperMillProfileViewModel = {
+                "MillJson": millId,
+                "PaperMillProfileJson": jsonOrder,
+                "buttonText": btnText,
+                "RegionJson": regionId
+            };
+
+            $.ajax({
+                url: "/PaperMillProfileView/Edit?handler=UpdateMillProfileDetails",
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                headers: {
+                    RequestVerificationToken:
+                        $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                data: JSON.stringify(paperMillProfileViewModel)
+            })
+                .done(function (result) {
+                    window.location.href = '/PaperMillProfileView/Index';
+                });
+        }
+
+    }
+
+    function _millProfileDetails() {
+
+        var rowLength = $("#tblMillProfileDetails tbody tr").length;
+        var rows = $("#tblMillProfileDetails tbody tr");
+        var arr = [];
+
+        if (rowLength == 0) {
+            //showToastrError("Please Add Soil Details", "Missing Data");
+            //return false;
+        }
+        else {
+            for (i = 0; i < rowLength; i++) {
+                var regionId = rows[i].cells[2].innerHTML;
+                var fabricId = rows[i].cells[4].innerHTML;
+                var width = rows[i].cells[5].innerHTML;
+                var length = rows[i].cells[6].innerHTML;
+                var gsm = rows[i].cells[7].innerHTML;
+                var sm = rows[i].cells[8].innerHTML;
+                var amountEachPiece = rows[i].cells[9].innerHTML;
+                var consPcsYear = rows[i].cells[10].innerHTML;
+                var consAmtYear = rows[i].cells[11].innerHTML;
+                var nextOrder = rows[i].cells[12].innerHTML;
+                var nextOrderCount = rows[i].cells[13].innerHTML;
+
+                if (rows[i].cells.length == 16) {
+                    arr.push({
+                        FabricId: fabricId,
+                        RegionId: regionId,
+                        Width: width,
+                        length: length,
+                        GSM: gsm,
+                        SM: sm,
+                        AmountEachPiece: amountEachPiece,
+                        ConsPcsYear: consPcsYear,
+                        ConsAmtYear: consAmtYear,
+                        NextOrder: nextOrder,
+                        NextOrderCount: nextOrderCount,
+                        PaperMillProfileId: rows[i].cells[14].innerHTML,
+                        Id: rows[i].cells[15].innerHTML
+                    });
+                }
+                else {
+                    arr.push({
+                    FabricId: fabricId,
+                    RegionId: regionId,
+                    Width: width,
+                    length: length,
+                    GSM: gsm,
+                    SM: sm,
+                    AmountEachPiece: amountEachPiece,
+                    ConsPcsYear: consPcsYear,
+                    ConsAmtYear: consAmtYear,
+                    NextOrder: nextOrder,
+                    NextOrderCount: nextOrderCount,
+                    PaperMillProfileId: '@Model.PaperMillProfile.Id',
+                });
+               }
+            }
+
+            var jsonOrder = JSON.stringify(arr);
+            return jsonOrder;
+        }
+    }
+
+    function deleteConsignmentOrderLine() {
+        $("#tblMillProfileDetails tbody").find('input[name="record"]').each(function () {
+            if ($(this).is(":checked")) {
+                $(this).parents("tr").remove();
+            }
+        });
+    }
+
+
+    function _add() {
+        
+        var regionTxt = $("#PaperMillProfile_RegionId option:selected").text();
+        var regionId = $("#PaperMillProfile_RegionId option:selected").val();
+
+        var fabricTxt = $("#PaperMillProfileDetails_0__FabricId option:selected").text();
+        var fabricId = $("#PaperMillProfileDetails_0__FabricId option:selected").val();
+
+        var width = $("#PaperMillProfileDetails_0__Width").val();
+        var length = $("#PaperMillProfileDetails_0__Length").val();
+        var gsm = $("#PaperMillProfileDetails_0__GSM").val();
+        var sm = $("#PaperMillProfileDetails_0__SM").val();
+
+
+        var amountEachPiece = $("#PaperMillProfileDetails_0__AmountEachPiece").val();
+        //amountEachPiece = (parseFloat(width) * parseInt(length) * (parseInt(gsm) / 1000) * parseInt(sm));
+
+        // Handle case for value like 50-55
+        if (gsm.includes("-")) {
+            amountEachPiece = (parseFloat(width) * parseInt(length) * parseInt(sm));
+        }
+        else {
+            amountEachPiece = (parseFloat(width) * parseInt(length) * (parseInt(gsm) / 1000) * parseInt(sm));
+        }
+
+        amountEachPiece = Math.round(amountEachPiece * 100) / 100;
+
+        var consPcsYear = $("#PaperMillProfileDetails_0__ConsPcsYear").val();
+        var consAmtYear = amountEachPiece * parseInt(consPcsYear); 
+
+        var nextOrder = $("#PaperMillProfileDetails_0__NextOrder").val();
+        //var nextOrderCount = $("#PaperMillProfileDetails_0__NextOrderCount").val();
+        var nextOrderCount = amountEachPiece * parseInt(nextOrder);
+
+        if (_allowAdd(fabricTxt, regionTxt, width, length, gsm, sm, amountEachPiece, consPcsYear, consAmtYear, nextOrder, nextOrderCount)) {
+
+            $("#b-navbar-fg").hide();
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + regionTxt +
+                "</td><td style='display:none'>" + regionId +
+                "</td><td>" + fabricTxt +
+                "</td><td style='display:none'>" + fabricId +
+                "</td><td>" + width +
+                "</td><td>" + length +
+                "</td><td>" + gsm +
+                "</td><td>" + sm +
+                "</td><td>" + amountEachPiece +
+                "</td><td>" + consPcsYear +
+                "</td><td>" + consAmtYear +
+                "</td><td>" + nextOrder +
+                "</td><td>" + nextOrderCount +
+                "</td></tr>";
+
+            $("#tblMillProfileDetails tbody").append(markup);
+
+            _reset();
+        }
+        else {
+            $("#b-navbar-fg").show();
+        }
+
+        _total();
+    }
+
+
+    function _total() {
+
+        var rowLength = $("#tblMillProfileDetails tbody tr").length;
+        var rows = $("#tblMillProfileDetails tbody tr");
+        var footer = $("#tblMillProfileDetails tfoot tr")
+
+        _resetFooter(footer);
+
+        if (rowLength == 0) {
+            //showToastrError("Please Add Soil Details", "Missing Data");
+            //return false;
+        }
+        else {
+            for (i = 0; i < rowLength; i++) {
+
+                var totalAmountEachPiece = parseInt(footer[0].cells[7].innerHTML) + parseInt(rows[i].cells[9].innerHTML);
+                totalAmountEachPiece = totalAmountEachPiece.toLocaleString();
+                footer[0].cells[7].innerHTML = totalAmountEachPiece;
+
+                //footer[0].cells[7].innerHTML = parseInt(footer[0].cells[7].innerHTML) + parseInt(rows[i].cells[9].innerHTML);
+                footer[0].cells[8].innerHTML = parseInt(footer[0].cells[8].innerHTML) + parseInt(rows[i].cells[10].innerHTML);
+                //footer[0].cells[9].innerHTML = parseInt(footer[0].cells[9].innerHTML) + parseInt(rows[i].cells[11].innerHTML);
+                var totalConstAmtYear = parseInt(footer[0].cells[9].innerHTML) + parseInt(rows[i].cells[11].innerHTML);
+                totalConstAmtYear = totalConstAmtYear.toLocaleString();
+                footer[0].cells[9].innerHTML = totalConstAmtYear;
+            }
+        }
+    }
+
+    function _resetFooter(footer){
+        footer[0].cells[7].innerHTML = "0";
+        footer[0].cells[8].innerHTML = "0";
+        footer[0].cells[9].innerHTML = "0";
+    }
+
+    function _cancel() {
+        window.location.href = '/PaperMillProfileView/Index';
+    }
+</script>

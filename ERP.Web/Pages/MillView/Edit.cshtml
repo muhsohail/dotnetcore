@@ -1,0 +1,105 @@
+﻿@page
+@model ERP.Pages.MillView.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Mill</h2>
+<hr />
+
+<div class="container">
+    <div class="panel-group">
+        <form method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Edit Mill Data Entry</div>
+                <div class="panel-body">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Mill.Id" />
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Mill.Name" class="control-label"></label>
+                            <input asp-for="Mill.Name" class="form-control" />
+                            <span asp-validation-for="Mill.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Mill.Code" class="control-label"></label>
+                            <input asp-for="Mill.Code" class="form-control" readonly />
+                            <span asp-validation-for="Mill.Code" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Mill.MDId" class="control-label"></label>
+                            <select asp-for="Mill.MDId" class="form-control" asp-items="ViewBag.MDId"></select>
+                            <span asp-validation-for="Mill.MDId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Mill.MangerId" class="control-label"></label>
+                            <select asp-for="Mill.MangerId" class="form-control" asp-items="ViewBag.MangerId"></select>
+                            <span asp-validation-for="Mill.MangerId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Mill.CPMId" class="control-label"></label>
+                            <select asp-for="Mill.CPMId" class="form-control" asp-items="ViewBag.CPMId"></select>
+                            <span asp-validation-for="Mill.CPMId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Mill.MechanicalId" class="control-label"></label>
+                            <select asp-for="Mill.MechanicalId" class="form-control" asp-items="ViewBag.MechanicalId"></select>
+                            <span asp-validation-for="Mill.MechanicalId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Mill.CityId" class="control-label"></label>
+                            <select asp-for="Mill.CityId" class="form-control" asp-items="ViewBag.CityId"></select>
+                            <span asp-validation-for="Mill.CityId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Actions</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

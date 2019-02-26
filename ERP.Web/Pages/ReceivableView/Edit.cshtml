@@ -1,0 +1,248 @@
+﻿@page
+@model ERP.Pages.ReceivableView.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Receivable</h2>
+
+<hr />
+
+<div class="container">
+    <div class="panel-group">
+        <form method="post">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">MILL DETAILS</div>
+                <div class="panel-body">
+
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            Mill <select asp-for="Receivable.MillId" class="form-control" asp-items="ViewBag.MillId"></select>
+
+                            <span class="input-group-btn">
+                                <input type="button" value="Load" class="btn btn-default" style="margin-top:20px" id="fetchMillDetails" />
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Mill Name: <input type="text" class="form-control" id="MillName" name="mailName" value="" readonly />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            CPM Name: <input type="text" class="form-control" id="CPMPersonName" name="CPMPersonName" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            CPM Cell:<input type="text" class="form-control" id="CPMPersonPhone" name="CPMPersonPhone" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Mnaager:<input type="text" class="form-control" id="ManagerPersonName" name="ManagerPersonName" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Manager Cell: <input type="text" class="form-control" id="ManagerPersonPhone" name="ManagerPersonPhone" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Mechanical Name: <input type="text" class="form-control" id="MechanicalName" name="MechanicalName" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Mechanical Cell: <input type="text" class="form-control" id="MechanicalPhone" name="MechanicalPhone" value="" readonly />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Edit Receivable DETAILS</div>
+                <div class="panel-body">
+
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Receivable.Id" />
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.RegionId" class="control-label"></label>
+                            <select asp-for="Receivable.RegionId" class="form-control" asp-items="ViewBag.RegionId"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.CPMId" class="control-label"></label>
+                            <select asp-for="Receivable.CPMId" class="form-control" asp-items="ViewBag.CPMId"></select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.CPMPerson.PrimaryPhone" class="control-label"></label>
+                            <input asp-for="Receivable.CPMPerson.PrimaryPhone" class="form-control" readonly />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.PersonReceivable" class="control-label"></label>
+                            <input asp-for="Receivable.PersonReceivable" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.DirectNumber" class="control-label"></label>
+                            <input asp-for="Receivable.DirectNumber" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.ReceiveableUpToDate" class="control-label"></label>
+                            <input asp-for="Receivable.ReceiveableUpToDate" class="form-control" />
+                            <span asp-validation-for="Receivable.ReceiveableUpToDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Sales Data Entry</div>
+                <div class="panel-body">
+
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.PotentialAnnual" class="control-label"></label>
+                            <input asp-for="Receivable.PotentialAnnual" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Sale2k16" class="control-label"></label>
+                            <input asp-for="Receivable.Sale2k16" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Sale2k17" class="control-label"></label>
+                            <input asp-for="Receivable.Sale2k17" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Sale2K18" class="control-label"></label>
+                            <input asp-for="Receivable.Sale2K18" class="form-control" />
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Drawing" class="control-label"></label>
+                            <input asp-for="Receivable.Drawing" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.NextAction" class="control-label"></label>
+                            <input asp-for="Receivable.NextAction" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">MISC Data Entry</div>
+                <div class="panel-body">
+
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Width" class="control-label"></label>
+                            <input asp-for="Receivable.Width" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.MechanicalData" class="control-label"></label>
+                            <input asp-for="Receivable.MechanicalData" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Drawing" class="control-label"></label>
+                            <input asp-for="Receivable.Drawing" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.NextAction" class="control-label"></label>
+                            <input asp-for="Receivable.NextAction" class="form-control" />
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">ACTIONS</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @foreach (var item in @Model.ActionButtons)
+                        {
+                            <button type="submit" name="submit" value="Link" class="btn col-lg-4 btn-primary" onclick="_prepareJson('@item.ButtonText')"> @item.ButtonText</button>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4"></div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

@@ -1,0 +1,54 @@
+﻿@page
+@model ERP.Pages.ProductRateView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Product Rates [@Model.ProductRate.Count]</h2>
+
+<p>
+    <a asp-page="Create">Create New Product Rate</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductRate[0].Fabric.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductRate[0].AskingRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductRate[0].MinimumRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductRate[0].MaximumRate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ProductRate) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fabric.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AskingRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinimumRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaximumRate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

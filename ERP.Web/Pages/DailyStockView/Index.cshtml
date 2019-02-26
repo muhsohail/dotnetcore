@@ -1,0 +1,42 @@
+﻿@page
+@model ERP.Pages.DailyStockView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Daily Stocks</h2>
+
+<p>
+    <a asp-page="Create">Create New Daily Stock</a>
+</p>
+@(Html
+        .Grid(Model.DailyStock)
+        .Build(columns =>
+        {
+            columns.Add(model => model.Fabric.Code).Titled("Fabric Code");
+            columns.Add(model => model.Mill.Code).Titled("Mil Code");
+            columns.Add(model => model.DateReceived).Titled("DateReceived");
+
+            columns.Add(model => model.WTOnePiece).Titled("WTOnePiece");
+            columns.Add(model => model.Amount).Titled("Amount");
+            columns.Add(model => model.Code).Titled("Code");
+
+            columns.Add(model => model.TTLWT).Titled("TTLWT");
+            columns.Add(model => model.AskingRate).Titled("AskingRate");
+            columns.Add(model => model.VarianceInWidth).Titled("VarianceInWidth");
+            columns.Add(model => model.VarianceInLength).Titled("VarianceInLength");
+            columns.Add(model => model.VarianceInGSM).Titled("VarianceInGSM");
+            columns.Add(model => model.Width).Titled("Width");
+            columns.Add(model => model.WidthInches).Titled("WidthInches");
+            columns.Add(model => model.Length).Titled("Length");
+            columns.Add(model => model.GSM).Titled("GSM");
+        })
+        .Empty("No data found")
+        .Filterable()
+        .Sortable()
+        .Pageable()
+)
+
+

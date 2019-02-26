@@ -1,0 +1,498 @@
+﻿@page
+@model ERP.Pages.ReceivableView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sales & Recivables by Region</h2>
+<h4>Beneficiary  Department: Management</h4>
+<p>
+    <a asp-page="Create">Create New Sales & Recivables</a>
+</p>
+<ul class="nav nav-tabs tab-nav-right" role="tablist">
+    <li role="presentation" class="active"><a href="#ReceivablesEnteries" data-toggle="tab">Receivables</a></li>
+    <li role="presentation"><a href="#SalesEnteries" data-toggle="tab">Sales</a></li>
+    <li role="presentation"><a href="#MiscEnteries" data-toggle="tab">Miscellenous</a></li>
+    <li role="presentation"><a href="#MiscSummary" data-toggle="tab">Summary</a></li>
+</ul>
+
+<div class="tab-content">
+
+    <div role="tabpanel" class="tab-pane animated fadeIn active" id="ReceivablesEnteries">
+
+        @foreach (var receivable in Model.Receivables)
+        {
+            var TotalReceivableTillDate = receivable.Value.Sum(x => x.ReceiveableUpToDate);
+            var TotalCurrentLessThen30Days = receivable.Value.Sum(x => x.CurrentLessThen30Days);
+            var TotalRec31To60 = receivable.Value.Sum(x => x.Rec31To60);
+            var TotalRec61To90 = receivable.Value.Sum(x => x.Rec61To90);
+            var TotalRec90Plus = receivable.Value.Sum(x => x.Rec90Plus);
+            var TotalAlmostDead = receivable.Value.Sum(x => x.AlmostDead);
+
+            <p>@receivable.Key</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].MillName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].CPMName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].ReceiveableUpToDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].CurrentLessThen30Days)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].Rec31To60)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].Rec61To90)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].Rec90Plus)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].AlmostDead)
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in receivable.Value)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MillName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CPMName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReceiveableUpToDate)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CurrentLessThen30Days)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rec31To60)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rec61To90)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Rec90Plus)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AlmostDead)
+                            </td>
+                            <td>
+                                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+
+                    <tr style="background-color:aquamarine">
+                        <td></td>
+                        <td><b>Grand Total:</b></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalCurrentLessThen30Days)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalCurrentLessThen30Days)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalRec31To60)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalRec61To90)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalRec90Plus)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalAlmostDead)
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane animated fadeIn" id="SalesEnteries">
+
+        @foreach (var receivable in Model.Receivables)
+        {
+            var TotalPotentialAnnual = receivable.Value.Sum(x => x.PotentialAnnual);
+            var TotalSale2k16 = receivable.Value.Sum(x => x.Sale2k16);
+            var TotalSale2k17 = receivable.Value.Sum(x => x.Sale2k17);
+            var TotalSale2K18 = receivable.Value.Sum(x => x.Sale2K18);
+
+
+            <p>@receivable.Key</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].MillName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].CPMName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].PotentialAnnual)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].Sale2k16)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].Sale2k17)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].Sale2K18)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in receivable.Value)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MillName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CPMName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PotentialAnnual)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sale2k16)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sale2k17)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sale2K18)
+
+                            </td>
+                            <td>
+                                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+                    <tr style="background-color:aquamarine">
+                        <td></td>
+                        <td><b>Grand Total:</b></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalPotentialAnnual)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalSale2k16)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalSale2k17)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalSale2K18)
+
+                        </td>
+
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+
+
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane animated fadeIn" id="MiscEnteries">
+        @foreach (var receivable in Model.Receivables)
+        {
+
+            <p>@receivable.Key</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].MillName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].CPMName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].Width)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].MechanicalData)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].Drawing)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Value[0].NextAction)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => receivable.Key)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in receivable.Value)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MillName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CPMName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Width)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MechanicalData)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Drawing)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NextAction)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => receivable.Key)
+
+                            </td>
+                            <td>
+                                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        }
+
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane animated fadeIn active" id="MiscSummary">
+        
+
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <td></td>
+                    <td colspan="6" align="center">Receivables</td>
+                    <td colspan="4" align="center">Sales</td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Region")
+                    </th>
+                    <th>
+                        @Html.DisplayName("ReceiveableUpToDate")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CurrentLessThen30Days")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Rec31To60")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Rec61To90")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Rec90Plus")
+                    </th>
+                    <th>
+                        @Html.DisplayName("AlmostDead")
+                    </th>
+                    <th>
+                        @Html.DisplayName("PotentialAnnual")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Sale2k16")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Sale2k17")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Sale2K18")
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+
+                    double GrandTotalReceivableTillDate = 0;
+                    double GrandTotalCurrentLessThen30Days = 0;
+                    double GrandTotalRec31To60 = 0;
+                    double GrandTotalRec61To90 = 0;
+                    double GrandTotalRec90Plus = 0;
+                    double GrandTotalAlmostDead = 0;
+                    double GrandTotalPotentialAnnual = 0;
+                    double GrandTotalSale2k16 = 0;
+                    double GrandTotalSale2k17 = 0;
+                    double GrandTotalSale2K18 = 0;
+                }
+
+                @foreach (var receivable in Model.Receivables)
+                {
+                    var TotalReceivableTillDate = receivable.Value.Sum(x => x.ReceiveableUpToDate);
+                    var TotalCurrentLessThen30Days = receivable.Value.Sum(x => x.CurrentLessThen30Days);
+                    var TotalRec31To60 = receivable.Value.Sum(x => x.Rec31To60);
+                    var TotalRec61To90 = receivable.Value.Sum(x => x.Rec61To90);
+                    var TotalRec90Plus = receivable.Value.Sum(x => x.Rec90Plus);
+                    var TotalAlmostDead = receivable.Value.Sum(x => x.AlmostDead);
+                    var TotalPotentialAnnual = receivable.Value.Sum(x => x.PotentialAnnual);
+                    var TotalSale2k16 = receivable.Value.Sum(x => x.Sale2k16);
+                    var TotalSale2k17 = receivable.Value.Sum(x => x.Sale2k17);
+                    var TotalSale2K18 = receivable.Value.Sum(x => x.Sale2K18);
+
+                    GrandTotalReceivableTillDate = GrandTotalReceivableTillDate + TotalReceivableTillDate;
+                    GrandTotalCurrentLessThen30Days = GrandTotalCurrentLessThen30Days + TotalCurrentLessThen30Days;
+                    GrandTotalRec31To60 = GrandTotalRec31To60 + TotalRec31To60;
+                    GrandTotalRec61To90 = GrandTotalRec61To90 + TotalRec61To90;
+                    GrandTotalRec90Plus = GrandTotalRec90Plus + TotalRec90Plus;
+                    GrandTotalAlmostDead = GrandTotalAlmostDead + TotalAlmostDead;
+                    GrandTotalPotentialAnnual = GrandTotalPotentialAnnual + TotalPotentialAnnual;
+                    GrandTotalSale2k16 = GrandTotalSale2k16 + TotalSale2k16;
+                    GrandTotalSale2k17 = GrandTotalSale2k17 + GrandTotalSale2k17;
+                    GrandTotalSale2K18 = GrandTotalSale2K18 + TotalSale2K18;
+
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => receivable.Key)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalReceivableTillDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalCurrentLessThen30Days)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalRec31To60)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalRec61To90)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalRec90Plus)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalAlmostDead)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalPotentialAnnual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalSale2k16)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalSale2k17)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => TotalSale2K18)
+
+                        </td>
+                    </tr>
+
+                }
+                <tr style="background-color:aquamarine">
+
+                    <td><b>Total:</b></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalReceivableTillDate)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalCurrentLessThen30Days)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalRec31To60)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalRec61To90)
+
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalRec90Plus)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalAlmostDead)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalPotentialAnnual)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalSale2k16)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalSale2k17)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => GrandTotalSale2K18)
+
+
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        
+
+
+    </div>
+
+
+</div>

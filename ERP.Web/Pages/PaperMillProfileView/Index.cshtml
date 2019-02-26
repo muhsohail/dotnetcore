@@ -1,0 +1,138 @@
+﻿@page
+@model ERP.Pages.PaperMillProfileView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Paper Mill Profile Listing [@Model.PaperMillProfile.Count]</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PaperMillProfile[0].Mill)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaperMillProfile[0].Region)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PaperMillProfile[0].TotalAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaperMillProfile[0].TotalPCSCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaperMillProfile[0].TotalConsAmtPerYear)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.PaperMillProfile[0].CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaperMillProfile[0].CreatedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaperMillProfile)
+        {
+            <tr>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mill.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPCSCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalConsAmtPerYear)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+
+                    @if (item.IsActive)
+                    {
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+
+
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Editor"))
+                    {
+                        if (!item.IsActive)
+                        {
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Undo Delete</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+
+
+    $(document).ready(function () {
+
+        _labels();
+
+    });
+
+    function _labels() {
+        // TODO Improve this part
+        // May be have to use MVC6 Grid
+        // CHeck later
+
+        $("table thead tr th").each(function (index) {
+
+            if (index == 0)
+                $(this).html("Mill");
+            else if (index == 1)
+                $(this).html("Region");
+            else if (index == 2)
+                $(this).html("Total Amount");
+
+            else if (index == 3)
+                $(this).html("Total PCS Count");
+            else if (index == 4)
+                $(this).html("Total Cons. Amount Per Year");
+            else if (index == 5)
+                $(this).html("Created By");
+            else if (index == 6)
+                $(this).html("Created Date");
+            else if (index == 7)
+                $(this).html("Actions");
+        });
+
+
+    }
+</script>

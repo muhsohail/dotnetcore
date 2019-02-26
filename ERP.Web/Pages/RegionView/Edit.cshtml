@@ -1,0 +1,80 @@
+﻿@page
+@model ERP.Pages.RegionView.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Region</h2>
+<hr />
+
+<div class="container">
+    <div class="panel-group">
+        <form method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Edit Region Data Entry</div>
+                <div class="panel-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Region.Id" />
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Region.Name" class="control-label"></label>
+                            <input asp-for="Region.Name" class="form-control" />
+                            <span asp-validation-for="Region.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Region.Description" class="control-label"></label>
+                            <input asp-for="Region.Description" class="form-control" />
+                            <span asp-validation-for="Region.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Region.Code" class="control-label"></label>
+                            <input asp-for="Region.Code" class="form-control" />
+                            <span asp-validation-for="Region.Code" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Region.RegionNo" class="control-label"></label>
+                            <input asp-for="Region.RegionNo" class="form-control" />
+                            <span asp-validation-for="Region.RegionNo" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Actions</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

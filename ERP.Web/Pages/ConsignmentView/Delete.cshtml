@@ -1,0 +1,48 @@
+﻿@page
+@model ERP.Pages.ConsignmentView.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ConsignmentOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsignmentOrder.BarCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ConsignmentOrder.BarCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsignmentOrder.CreatedBy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ConsignmentOrder.CreatedBy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsignmentOrder.Mill.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ConsignmentOrder.Mill.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsignmentOrder.Region.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ConsignmentOrder.Region.Code)
+        </dd>
+       
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="ConsignmentOrder.Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

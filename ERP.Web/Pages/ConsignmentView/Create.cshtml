@@ -1,0 +1,657 @@
+﻿@page
+@model ERP.Pages.ConsignmentView.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Consignment Order</h2>
+
+<h4>Final Order Made By Pakistan Office and sent to MD</h4>
+<hr />
+<div class="alert alert-danger alert-dismissible" role="alert" id="b-navbar-fg">
+    <strong>Oh!</strong> Seems like you did not enter complete data
+</div>
+@Html.HiddenFor(model => model.ConsignmentViewModel.ConsignmentOrderJson)
+@Html.HiddenFor(model => model.ConsignmentViewModel.MillJson)
+@Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="panel-group">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Mill Details</div>
+            <div class="panel-body">
+
+                <div class="col-md-4">
+                    <div class="input-group">
+                        Mill <select asp-for="ConsignmentViewModel.ConsignmentOrder.MillId" class="form-control" asp-items="ViewBag.MillId"></select>
+
+                        <span class="input-group-btn">
+                            <input type="button" value="Load" class="btn btn-default" style="margin-top:20px" id="fetchMillDetails" />
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mill Name: <input type="text" class="form-control" id="MillName" name="mailName" value="" readonly />
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        CPM Name: <input type="text" class="form-control" id="CPMPersonName" name="CPMPersonName" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        CPM Cell:<input type="text" class="form-control" id="CPMPersonPhone" name="CPMPersonPhone" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mnaager:<input type="text" class="form-control" id="ManagerPersonName" name="ManagerPersonName" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Manager Cell: <input type="text" class="form-control" id="ManagerPersonPhone" name="ManagerPersonPhone" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mechanical Name: <input type="text" class="form-control" id="MechanicalName" name="MechanicalName" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mechanical Cell: <input type="text" class="form-control" id="MechanicalPhone" name="MechanicalPhone" value="" readonly />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">Final Order Made By Pakistan Office and sent to MD</div>
+            <div class="panel-body">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.FabricId" class="control-label"></label>
+                        <select asp-for="ConsignmentViewModel.ConsignmentOrderItem.FabricId" class="form-control" asp-items="ViewBag.FabricId"></select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.FabricTitle" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.FabricTitle" class="form-control" readonly="readonly" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.FabricTitle" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrder.RegionId" class="control-label"></label>
+                        <select asp-for="ConsignmentViewModel.ConsignmentOrder.RegionId" class="form-control" asp-items="ViewBag.RegionId"></select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.Width" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.Width" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.Width" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.Length" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.Length" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.Length" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.GSM" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.GSM" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.GSM" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.QtyJ" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.QtyJ" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.QtyJ" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.QtyIJ" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.QtyIJ" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.QtyIJ" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.QtyWMA" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.QtyWMA" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.QtyWMA" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.WT" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.WT" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.WT" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.FormatReference" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.FormatReference" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.FormatReference" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.LayerType" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.LayerType" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.LayerType" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.PaperType" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.PaperType" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.PaperType" class="text-danger"></span>
+                    </div>
+                </div>
+                @*<div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.BarCode" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.BarCode" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.BarCode" class="text-danger"></span>
+                    </div>
+                </div>*@
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.Size" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.Size" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.Size" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <label asp-for="ConsignmentViewModel.ConsignmentOrderItem.Remarks" class="control-label"></label>
+                        <input asp-for="ConsignmentViewModel.ConsignmentOrderItem.Remarks" class="form-control" />
+                        <span asp-validation-for="ConsignmentViewModel.ConsignmentOrderItem.Remarks" class="text-danger"></span>
+
+                        <span class="input-group-btn">
+                            <input type="button" value="Add" class="btn btn-default" style="margin-top:25px" onclick="addConsignmentOrderLine()" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-body">
+                <table class="table table-striped" id="tblConsignmentOrderLines">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Fabric</th>
+                            <th></th>
+                            <th>Region</th>
+                            <th>Width(m)</th>
+                            <th>Length(m)</th>
+                            <th>Msh./</th>
+                            <th>Qty J</th>
+                            <th>Qty U</th>
+                            <th>Qty WMA</th>
+                            <th>WT</th>
+                            <th>Format Reference</th>
+                            <th>Single OR Double</th>
+                            <th></th>
+                            <th>Paper Type</th>
+                            @*<th>Bar Code</th>*@
+                            <th>Size</th>
+                            @*<th>Type</th>*@
+                            <th>Remark( paper Type)</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            @*<td></td>*@
+                            <td></td>
+                            <td></td>
+                            @*<td></td>*@
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                    <tbody></tbody>
+                </table>
+                <button type="button" class="btn btn-danger" id="deleteOrderLine" onclick="deleteConsignmentOrderLine()">Delete</button>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Comments</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <textarea asp-for="ConsignmentViewModel.ConsignmentOrder.OrderComments" rows="3" cols="20" class="form-control"> </textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Action</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @foreach (var item in @Model.ActionButtons)
+                    {
+                        <button type="button" name="submit" value="Link" class="btn col-lg-4 btn-primary" onclick="_prepareJson('@item.ButtonText')"> @item.ButtonText</button>
+
+                    }
+                    @*<button type="button" name="submit" value="Link" class="btn col-lg-4 btn-primary" onclick="_prepareJson('create')"> Create</button>
+                        <button type="button" name="submit" value="Link" class="btn col-lg-4 btn-primary" onclick="_prepareJson('draft')"> Save As Draft</button>
+                        <button type="button" name="submit" value="Link" class="btn col-lg-4 btn-primary" onclick="_cancel()"> Cancel</button>*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#b-navbar-fg").hide()
+        poplateFabricDesc();
+
+        $("#fetchMillDetails").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/OrderView/Create?handler=Mills",
+                data: "millCode=" + $("#ConsignmentViewModel_ConsignmentOrder_MillId option:selected").text(),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+
+                    $("#MillName").val(response.name);
+
+                    $("#CPMPersonName").val(response.cpmPerson.name);
+                    $("#CPMPersonPhone").val(response.cpmPerson.primaryPhone);
+
+
+                    $("#ManagerPersonName").val(response.mangerPerson.name);
+                    $("#ManagerPersonPhone").val(response.mangerPerson.primaryPhone);
+
+                    $("#MechanicalName").val(response.mechanicalPerson.name);
+                    $("#MechanicalPhone").val(response.mechanicalPerson.primaryPhone);
+
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+
+        });
+
+        // on dropdown value change
+        $("#ConsignmentViewModel_ConsignmentOrderItem_FabricId").change(function () {
+            poplateFabricDesc();
+        });
+
+    });
+
+    function poplateFabricDesc() {
+
+        $.ajax({
+            type: "GET",
+            url: "/ConsignmentView/Create?handler=FabricDescription",
+            data: "faricId=" + $("#ConsignmentViewModel_ConsignmentOrderItem_FabricId option:selected").val(),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+
+                $("#ConsignmentViewModel_ConsignmentOrderItem_FabricTitle").val(response);
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+    function _allowAdd(a, b, c, d, e, f, g, h, i, j, k, l, m, n) {
+
+        var canAdd = false;
+        if ((a != undefined && a != null && a != "")
+            && (b != undefined && b != null && b != "")
+            && (c != undefined && c != null && c != "")
+            && (d != undefined && d != null && d != "" && !isNaN(d))
+            && (e != undefined && e != null && e != "")
+            && (f != undefined && f != null && f != "")
+            && (g != undefined && g != null && g != "")
+            && (h != undefined && h != null && h != "")
+            && (i != undefined && i != null && i != "")
+            && (j != undefined && j != null && j != "")
+            && (k != undefined && k != null && k != "")
+            && (l != undefined && l != null && l != "")
+            && (m != undefined && m != null && m != "")
+            && (n != undefined && n != null && n != "")) {
+            canAdd = true;
+        }
+        else {
+            canAdd = false;
+        }
+        return canAdd;
+    }
+    function _empty(a, b, c, d, e, f, g, h, i, j, k, l, m, n) {
+        if ((a == undefined || a == null || a == "")
+            && (b == undefined || b == null | b == "")
+            && (c == undefined || c == null | c == "")
+            && (d == undefined || d == null | d == "")
+            && (e == undefined || e == null | e == "")
+            && (f == undefined || f == null | f == "")
+            && (g == undefined || g == null | g == "")
+            && (h == undefined || h == null | h == "")
+            && (i == undefined || i == null | i == "")
+            && (j == undefined || j == null | j == "")
+            && (k == undefined || k == null | k == "")
+            && (k == undefined || k == null | l == "")
+            && (k == undefined || k == null | m == "")
+            && (k == undefined || k == null | n == ""))
+            return true;
+        else
+            return false;
+    }
+
+    function resetConsignmentOrderItemDetails() {
+        $("#ConsignmentViewModel_ConsignmentOrderItem_Width").val('');
+        $('#ConsignmentViewModel_ConsignmentOrderItem_Length').val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_GSM").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_QtyJ").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_QtyIJ").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_QtyWMA").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_WT").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_FormatReference").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_LayerType").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_PaperType").val('');
+        //$("#ConsignmentViewModel_ConsignmentOrderItem_BarCode").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_Size").val('');
+        $("#ConsignmentViewModel_ConsignmentOrderItem_Remarks").val('');
+
+    }
+
+
+    function _prepareJson(btnText) {
+
+        if (btnText.toLowerCase() == 'cancel')
+            _cancel();
+        else {
+            var jsonOrder = _consignmentOrderDetails();
+            var millId = $("#ConsignmentViewModel_ConsignmentOrder_MillId option:selected").val();
+            var regionId = $("#ConsignmentViewModel_ConsignmentOrder_RegionId option:selected").val();
+            var orderComments = $("#ConsignmentViewModel_ConsignmentOrder_OrderComments").val();
+
+            var consignmentViewModel = {
+                "MillJson": millId,
+                "ConsignmentOrderJson": jsonOrder,
+                "buttonText": btnText,
+                "RegionJson": regionId,
+                "OrderComments": orderComments
+
+
+                //"Mill": null,
+                //"ConsignmentOrderItem": null,
+                //"ConsignmentOrders": null
+            };
+
+            $.ajax({
+                url: "/ConsignmentView/Create?handler=Sample",
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                headers: {
+                    RequestVerificationToken:
+                        $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                data: JSON.stringify(consignmentViewModel)
+            })
+                .done(function (result) {
+                    window.location.href = '/ConsignmentView/Index';
+                });
+
+
+
+        }
+
+    }
+
+    function _consignmentOrderDetails() {
+
+        var table = $("#ConsignmentOrderJson");
+        var rowLength = $("#tblConsignmentOrderLines tr").length;
+        var rows = $("#tblConsignmentOrderLines tr");
+        var arr = [];
+        if (rowLength == 1) {
+            //showToastrError("Please Add Soil Details", "Missing Data");
+            //return false;
+        }
+        else {
+            for (i = 2; i < rowLength; i++) {
+
+                var FabricTitle = rows[i].cells[1].innerHTML;
+                var fabricId = rows[i].cells[3].innerHTML;
+                var regionId = rows[i].cells[5].innerHTML;
+                var width = rows[i].cells[6].innerHTML;
+                var length = rows[i].cells[7].innerHTML;
+                var gsm = rows[i].cells[8].innerHTML;
+                var qtyJ = rows[i].cells[9].innerHTML;
+                var qtyIJ = rows[i].cells[10].innerHTML;
+                var qtyWMA = rows[i].cells[11].innerHTML;
+                var wt = rows[i].cells[12].innerHTML;
+                var formatReference = rows[i].cells[13].innerHTML;
+                var layerType = rows[i].cells[14].innerHTML;
+                var paperType = rows[i].cells[16].innerHTML;
+                //var barCode = rows[i].cells[17].innerHTML;
+                var size = rows[i].cells[17].innerHTML;
+                var remarks = rows[i].cells[18].innerHTML;
+
+                arr.push({
+                    //Id: fabricId,
+                    FabricTitle: FabricTitle,
+                    Width: width,
+                    length: length,
+                    GSM: gsm,
+                    QtyJ: qtyJ,
+                    QtyIJ: qtyIJ,
+                    QtyWMA: qtyWMA,
+                    WT: wt,
+                    FormatReference: formatReference,
+                    LayerType: layerType,
+                    //layerType: layerType,
+                    PaperType: paperType,
+                    //BarCode: barCode,
+                    Size: size,
+                    FabricType: "",
+                    Remarks: remarks,
+                    FabricId: fabricId,
+                    //MillId: fabricId,
+                    RegionId: regionId,
+
+                });
+            }
+
+            var jsonOrder = JSON.stringify(arr);
+            $("#ConsignmentOrderJson").val(jsonOrder);
+            var tab = $('#tblConsignmentOrderLines')
+            row = tab.find('tr').eq(1)[0];
+
+            return jsonOrder;
+        }
+    }
+
+    function deleteConsignmentOrderLine() {
+        $("#tblConsignmentOrderLines tbody").find('input[name="record"]').each(function () {
+            if ($(this).is(":checked")) {
+                $(this).parents("tr").remove();
+            }
+        });
+    }
+
+    function addConsignmentOrderLine() {
+
+        //var fabricTxt = $("#ConsignmentViewModel_ConsignmentOrder_FabricId option:selected").text();
+        var fabricTxt = $("#ConsignmentViewModel_ConsignmentOrderItem_FabricTitle").val();
+        var fabricId = $("#ConsignmentViewModel_ConsignmentOrderItem_FabricId option:selected").val();
+        var regionTxt = $("#ConsignmentViewModel_ConsignmentOrder_RegionId option:selected").text();
+        var regionId = $("#ConsignmentViewModel_ConsignmentOrder_RegionId option:selected").val();
+
+        var width = $("#ConsignmentViewModel_ConsignmentOrderItem_Width").val();
+        var length = $("#ConsignmentViewModel_ConsignmentOrderItem_Length").val();
+        var gsm = $("#ConsignmentViewModel_ConsignmentOrderItem_GSM").val();
+        var qtyJ = $("#ConsignmentViewModel_ConsignmentOrderItem_QtyJ").val();
+        var qtyIJ = $("#ConsignmentViewModel_ConsignmentOrderItem_QtyIJ").val();
+        var qtyWMA = $("#ConsignmentViewModel_ConsignmentOrderItem_QtyWMA").val();
+        var wt = $("#ConsignmentViewModel_ConsignmentOrderItem_WT").val();
+        var formatReference = $("#ConsignmentViewModel_ConsignmentOrderItem_FormatReference").val();
+        var layerType = $("#ConsignmentViewModel_ConsignmentOrderItem_LayerType").val();
+        var paperType = $("#ConsignmentViewModel_ConsignmentOrderItem_PaperType").val();
+        //var barCode = $("#ConsignmentViewModel_ConsignmentOrderItem_BarCode").val();
+        var size = $("#ConsignmentViewModel_ConsignmentOrderItem_Size").val();
+        var remarks = $("#ConsignmentViewModel_ConsignmentOrderItem_Remarks").val();
+
+
+        if (_allowAdd(fabricTxt, regionTxt, width, length, gsm, qtyJ, qtyIJ, qtyWMA, wt, formatReference, layerType, paperType, size, remarks)) {
+            $("#b-navbar-fg").hide();
+
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + fabricTxt +
+                "</td><td>" + 'PUF' +
+                "</td><td style='display:none'>" + fabricId +
+                "</td><td>" + regionTxt +
+                "</td><td style='display:none'>" + regionId +
+                "</td><td>" + width +
+                "</td><td>" + length +
+                "</td><td>" + gsm +
+                "</td><td>" + qtyJ +
+                "</td><td>" + qtyIJ +
+                "</td><td>" + qtyWMA +
+                "</td><td>" + wt +
+                "</td><td>" + formatReference +
+                "</td><td>" + layerType +
+                "</td><td>" + 'Single' +
+                "</td><td>" + paperType +
+                //"</td><td>" + barCode +
+                "</td><td>" + size +
+                "</td><td>" + remarks +
+                "</td></tr>";
+
+
+            $("#tblConsignmentOrderLines tbody").append(markup);
+
+            resetConsignmentOrderItemDetails();
+        }
+        else {
+            $("#b-navbar-fg").show()
+        }
+
+
+        //_total();
+
+        //if (!_empty(DescriptionEn)) {
+        //    var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + DescriptionEn + "</td></tr>";
+        //    $("#tblFeatureName tbody").append(markup);
+
+        //    _blankFeatureName();
+        //}
+        //else {
+        //    showToastrError("Please enter Related Hardware data");
+        //}
+    }
+
+    function _total() {
+
+        var table = $("#OrderJson");
+        var rowLength = $("#tblOrderLines tbody tr").length;
+        var rows = $("#tblOrderLines tbody tr");
+
+        var footer = $("#tblOrderLines tfoot tr")
+
+        _resetFooter(footer);
+
+
+        var arr = [];
+        if (rowLength == 0) {
+            //showToastrError("Please Add Soil Details", "Missing Data");
+            //return false;
+        }
+        else {
+            for (i = 0; i < rowLength; i++) {
+
+
+
+                footer[0].cells[7].innerHTML = parseInt(footer[0].cells[7].innerHTML) + parseInt(rows[i].cells[9].innerHTML);
+                footer[0].cells[8].innerHTML = parseInt(footer[0].cells[8].innerHTML) + parseInt(rows[i].cells[10].innerHTML);
+                footer[0].cells[9].innerHTML = parseInt(footer[0].cells[9].innerHTML) + parseInt(rows[i].cells[11].innerHTML);
+            }
+        }
+    }
+
+    function _resetFooter(footer) {
+
+        footer[0].cells[7].innerHTML = "0";
+        footer[0].cells[8].innerHTML = "0";
+        footer[0].cells[9].innerHTML = "0";
+
+    }
+
+    function _cancel() {
+
+         //var url = '@Url.Action("Details", "Branch", new { id = "__id__" })';
+        window.location.href = '/ConsignmentView/Index';
+    }
+</script>

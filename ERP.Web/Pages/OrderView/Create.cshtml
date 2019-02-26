@@ -1,0 +1,515 @@
+﻿@page
+@model ERP.Pages.OrderView.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Order</h2>
+
+<hr />
+
+@Html.HiddenFor(model => model.CreateOrderModel.OrderJson)
+@Html.HiddenFor(model => model.CreateOrderModel.MillJson)
+
+<div class="container">
+    <div class="panel-group">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Mill Details</div>
+            <div class="panel-body">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mill: <select asp-for="CreateOrderModel.Order.MillId" class="form-control" asp-items="ViewBag.MillId"></select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="col-md-4">
+                        <input type="button" value="Load" class="btn btn-default" id="fetchMillDetails" />
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mill Name: <input type="text" class="form-control" id="MillName" name="mailName" value="" readonly />
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        CPM Name: <input type="text" class="form-control" id="CPMPersonName" name="CPMPersonName" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        CPM Cell:<input type="text" class="form-control" id="CPMPersonPhone" name="CPMPersonPhone" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mnaager:<input type="text" class="form-control" id="ManagerPersonName" name="ManagerPersonName" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Manager Cell: <input type="text" class="form-control" id="ManagerPersonPhone" name="ManagerPersonPhone" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mechanical Name: <input type="text" class="form-control" id="MechanicalName" name="MechanicalName" value="" readonly />
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        Mechanical Cell: <input type="text" class="form-control" id="MechanicalPhone" name="MechanicalPhone" value="" readonly />
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="" href="#OrderDetailsTransaction">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                        <strong class="text-uppercase">Order Details</strong>
+                    </a>
+                </h4>
+            </div>
+
+            <div id="OrderDetailsTransaction" class="panel-collapse collapse">
+                <div class="panel-body" id="vehiclediv">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <form method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.FabricId" class="control-label"></label>
+                                    <select asp-for="CreateOrderModel.Order.FabricId" class="form-control" asp-items="ViewBag.FabricId"></select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.RegionId" class="control-label"></label>
+                                    <select asp-for="CreateOrderModel.Order.RegionId" class="form-control" asp-items="ViewBag.RegionId"></select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.Width" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.Width" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.Width" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.Length" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.Length" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.Length" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.GSM" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.GSM" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.GSM" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.SM" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.SM" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.SM" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.AmountEachPiece" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.AmountEachPiece" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.AmountEachPiece" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.ConsPcsYear" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.ConsPcsYear" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.ConsPcsYear" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.ConsAmtYear" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.ConsAmtYear" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.ConsAmtYear" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.NextOrder" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.NextOrder" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.NextOrder" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label asp-for="CreateOrderModel.Order.NextOrderCount" class="control-label"></label>
+                                    <input asp-for="CreateOrderModel.Order.NextOrderCount" class="form-control" />
+                                    <span asp-validation-for="CreateOrderModel.Order.NextOrderCount" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="CreateOrderModel.Order.IsActive" /> @Html.DisplayNameFor(model => model.CreateOrderModel.Order.IsActive))
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="button" value="Add" class="btn btn-default" id="btnAddOrderLine" onclick="addOrderLine()" />
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table table-striped" id="tblOrderLines">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Fabric</th>
+                                <th>Region</th>
+                                <th>Width(m)</th>
+                                <th>Length(m)</th>
+                                <th>Msh./ GSM</th>
+                                <th>Rtae/KGM/SM</th>
+                                <th>Amount Each Piece</th>
+                                <th>Cons.Pcs/ year</th>
+                                <th>Cons.Amt/ year</th>
+                                <th>Next Order.</th>
+                                <th>Next Order Amt.</th>
+                            </tr>
+
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                        <tbody></tbody>
+                    </table>
+                    <button type="button" class="btn btn-danger" id="deleteOrderLine" onclick="deleteOrderLine()">Delete</button>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Attachment -->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="" href="#collapsAttachment">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                        <strong class="text-uppercase">Attachment </strong>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapsAttachment" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    @*<a asp-controller="ERPHome" asp-action="AttachmentsParentView" asp-route-serviceCode="order" asp-route-transactionId="0" asp-route-canUpload="true" asp-route-CanDelete="true" asp-route-CanDownload="true">Speaker Evaluations</a>*@
+                    <a asp-controller="ERPHome" asp-action="AttachmentsParentView">Load Attachment View</a>
+                    @*<partial name="/Views/Shared/EditorTemplates/AttachmentsView.cshtml" />*@
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">Action</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <button type="submit" name="submit" value="Link" class="btn btn-lg btn-primary" onclick="_prepareJson()"> Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+<div id="dvItems">
+
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        //$("#btnAddOrderLine").click(function () {
+
+
+
+
+        //});
+
+
+        $("#fetchMillDetails").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/OrderView/Create?handler=Mills",
+                data: "millCode=" + $("#CreateOrderModel_Order_MillId option:selected").text(),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+
+                    $("#MillName").val(response.name);
+
+                    $("#CPMPersonName").val(response.cpmPerson.name);
+                    $("#CPMPersonPhone").val(response.cpmPerson.primaryPhone);
+
+
+                    $("#ManagerPersonName").val(response.mangerPerson.name);
+                    $("#ManagerPersonPhone").val(response.mangerPerson.primaryPhone);
+
+                    $("#MechanicalName").val(response.mechanicalPerson.name);
+                    $("#MechanicalPhone").val(response.mechanicalPerson.primaryPhone);
+                },
+
+                failure: function (response) {
+                    alert(response);
+                }
+
+            });
+
+        });
+
+    });
+
+    function _empty(a, b, c, d, e, f, g, h, i, j, k) {
+        if ((a == undefined || a == null || a == "")
+            && (b == undefined || b == null | b == "")
+            && (c == undefined || c == null | c == "")
+            && (d == undefined || d == null | d == "")
+            && (e == undefined || e == null | e == "")
+            && (f == undefined || f == null | f == "")
+            && (g == undefined || g == null | g == "")
+            && (h == undefined || h == null | h == "")
+            && (i == undefined || i == null | i == "")
+            && (j == undefined || j == null | j == "")
+            && (k == undefined || k == null | k == ""))
+            return true;
+        else
+            return false;
+    }
+
+    function resetOrderDetails() {
+        $("#CreateOrderModel_Order_Width").val('');
+        $('#CreateOrderModel_Order_Length').val('');
+        $("#CreateOrderModel_Order_GSM").val('');
+        $("#CreateOrderModel_Order_SM").val('');
+        $("#CreateOrderModel_Order_AmountEachPiece").val('');
+        $("#CreateOrderModel_Order_ConsPcsYear").val('');
+        $("#CreateOrderModel_Order_ConsAmtYear").val('');
+        $("#CreateOrderModel_Order_NextOrder").val('');
+        $("#CreateOrderModel_Order_NextOrderCount").val('');
+    }
+
+
+    function _prepareJson() {
+        var jsonOrder = _orderDetails();
+        var millId = $("#CreateOrderModel_Order_MillId option:selected").val();
+
+        var objCreateOrder = {
+            "MillJson": millId,
+            "OrderJson": jsonOrder
+        };
+        $.ajax({
+            url: "/OrderView/Create?handler=Sample",
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: JSON.stringify(objCreateOrder)
+        })
+            .done(function (result) {
+
+                
+                console.log(result);
+            });
+    }
+
+    function _orderDetails() {
+
+        var table = $("#OrderJson");
+        var rowLength = $("#tblOrderLines tr").length;
+        var rows = $("#tblOrderLines tr");
+        var arr = [];
+        if (rowLength == 1) {
+            //showToastrError("Please Add Soil Details", "Missing Data");
+            //return false;
+        }
+        else {
+            for (i = 1; i < rowLength; i++) {
+                var fabricId = rows[i].cells[2].innerHTML;
+                var regionId = rows[i].cells[4].innerHTML;
+                var width = rows[i].cells[5].innerHTML;
+                var length = rows[i].cells[6].innerHTML;
+                var gsm = rows[i].cells[7].innerHTML;
+                var sm = rows[i].cells[8].innerHTML;
+                var amountEachPiece = rows[i].cells[9].innerHTML;
+                var consPcsYear = rows[i].cells[10].innerHTML;
+                var consAmtYear = rows[i].cells[11].innerHTML;
+                var nextOrder = rows[i].cells[12].innerHTML;
+                var nextOrderCount = rows[i].cells[13].innerHTML;
+
+                arr.push({
+                    FabricId: fabricId,
+                    RegionId: regionId,
+                    Width: width,
+                    length: length,
+                    GSM: gsm,
+                    SM: sm,
+                    AmountEachPiece: amountEachPiece,
+                    ConsPcsYear: consPcsYear,
+                    ConsAmtYear: consAmtYear,
+                    NextOrder: nextOrder,
+                    NextOrderCount: nextOrderCount
+                });
+            }
+
+            var jsonOrder = JSON.stringify(arr);
+            $("#OrderJson").val(jsonOrder);
+            var tab = $('#tblOrderLines')
+            row = tab.find('tr').eq(1)[0];
+
+            return jsonOrder;
+        }
+    }
+
+    function deleteOrderLine() {
+        $("#tblOrderLines tbody").find('input[name="record"]').each(function () {
+            if ($(this).is(":checked")) {
+                $(this).parents("tr").remove();
+            }
+        });
+    }
+
+    function addOrderLine() {
+
+        var a = $("#CreateOrderModel_Order_FabricId option:selected").text();
+        var a_id = $("#CreateOrderModel_Order_FabricId option:selected").val();
+        var b = $("#CreateOrderModel_Order_RegionId option:selected").text();
+        var b_id = $("#CreateOrderModel_Order_RegionId option:selected").val();
+        var c = $("#CreateOrderModel_Order_Width").val();
+        var d = $("#CreateOrderModel_Order_Length").val();
+        var e = $("#CreateOrderModel_Order_GSM").val();
+        var f = $("#CreateOrderModel_Order_SM").val();
+        var g = $("#CreateOrderModel_Order_AmountEachPiece").val();
+        var h = $("#CreateOrderModel_Order_ConsPcsYear").val();
+        var i = $("#CreateOrderModel_Order_ConsAmtYear").val();
+        var j = $("#CreateOrderModel_Order_NextOrder").val();
+        var k = $("#CreateOrderModel_Order_NextOrderCount").val();
+
+
+        if (!_empty(a, b, c, d, e, f, g, h, i, j, k)) {
+            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + a + "</td><td style='display:none'>" + a_id + "</td><td>" + b + "</td><td style='display:none'>" + b_id + "</td><td>" + c + "</td><td>" + d + "</td><td>" + e + "</td><td>" + f + "</td><td>" + g + "</td><td>" + h + "</td><td>" + i + "</td><td>" + j + "</td><td>" + k + "</td></tr>";
+            $("#tblOrderLines tbody").append(markup);
+
+            resetOrderDetails();
+        }
+        else {
+            showToastrError("Please enter PreRequisite data");
+        }
+
+
+        _total();
+
+        //if (!_empty(DescriptionEn)) {
+        //    var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + DescriptionEn + "</td></tr>";
+        //    $("#tblFeatureName tbody").append(markup);
+
+        //    _blankFeatureName();
+        //}
+        //else {
+        //    showToastrError("Please enter Related Hardware data");
+        //}
+    }
+
+    function _total() {
+
+        var table = $("#OrderJson");
+        var rowLength = $("#tblOrderLines tbody tr").length;
+        var rows = $("#tblOrderLines tbody tr");
+
+        var footer = $("#tblOrderLines tfoot tr")
+
+        _resetFooter(footer);
+
+
+        var arr = [];
+        if (rowLength == 0) {
+            //showToastrError("Please Add Soil Details", "Missing Data");
+            //return false;
+        }
+        else {
+            for (i = 0; i < rowLength; i++) {
+
+
+
+                footer[0].cells[7].innerHTML = parseInt(footer[0].cells[7].innerHTML) + parseInt(rows[i].cells[9].innerHTML);
+                footer[0].cells[8].innerHTML = parseInt(footer[0].cells[8].innerHTML) + parseInt(rows[i].cells[10].innerHTML);
+                footer[0].cells[9].innerHTML = parseInt(footer[0].cells[9].innerHTML) + parseInt(rows[i].cells[11].innerHTML);
+            }
+        }
+    }
+
+    function _resetFooter(footer) {
+
+        footer[0].cells[7].innerHTML = "0";
+        footer[0].cells[8].innerHTML = "0";
+        footer[0].cells[9].innerHTML = "0";
+
+    }
+</script>

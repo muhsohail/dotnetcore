@@ -1,0 +1,366 @@
+﻿@page
+@model ERP.Pages.ReceivableView.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Receivable</h2>
+<hr />
+@Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="panel-group">
+        <form method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">MILL DETAILS</div>
+                <div class="panel-body">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            Mill <select asp-for="Receivable.MillId" class="form-control" asp-items="ViewBag.MillId"></select>
+
+                            <span class="input-group-btn">
+                                <input type="button" value="Load" class="btn btn-default" style="margin-top:20px" id="fetchMillDetails" />
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Mill Name: <input type="text" class="form-control" id="MillName" name="mailName" value="" readonly />
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            CPM Name: <input type="text" class="form-control" id="CPMPersonName" name="CPMPersonName" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            CPM Cell:<input type="text" class="form-control" id="CPMPersonPhone" name="CPMPersonPhone" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Mnaager:<input type="text" class="form-control" id="ManagerPersonName" name="ManagerPersonName" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Manager Cell: <input type="text" class="form-control" id="ManagerPersonPhone" name="ManagerPersonPhone" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Mechanical Name: <input type="text" class="form-control" id="MechanicalName" name="MechanicalName" value="" readonly />
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+
+                            Mechanical Cell: <input type="text" class="form-control" id="MechanicalPhone" name="MechanicalPhone" value="" readonly />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Receivable Data Entry</div>
+                <div class="panel-body">
+
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.RegionId" class="control-label"></label>
+                            <select asp-for="Receivable.RegionId" class="form-control" asp-items="ViewBag.RegionId"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.CPMId" class="control-label"></label>
+                            <select asp-for="Receivable.CPMId" class="form-control" asp-items="ViewBag.CPMId"></select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.CPMPerson.PrimaryPhone" class="control-label"></label>
+                            <input asp-for="Receivable.CPMPerson.PrimaryPhone" class="form-control"readonly/>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.PersonReceivable" class="control-label"></label>
+                            <input asp-for="Receivable.PersonReceivable" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.DirectNumber" class="control-label"></label>
+                            <input asp-for="Receivable.DirectNumber" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.ReceiveableUpToDate" class="control-label"></label>
+                            <input asp-for="Receivable.ReceiveableUpToDate" class="form-control" />
+                            <span asp-validation-for="Receivable.ReceiveableUpToDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Sales Data Entry</div>
+                <div class="panel-body">
+
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.PotentialAnnual" class="control-label"></label>
+                            <input asp-for="Receivable.PotentialAnnual" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Sale2k16" class="control-label"></label>
+                            <input asp-for="Receivable.Sale2k16" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Sale2k17" class="control-label"></label>
+                            <input asp-for="Receivable.Sale2k17" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Sale2K18" class="control-label"></label>
+                            <input asp-for="Receivable.Sale2K18" class="form-control"/>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Drawing" class="control-label"></label>
+                            <input asp-for="Receivable.Drawing" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.NextAction" class="control-label"></label>
+                            <input asp-for="Receivable.NextAction" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">MISC Data Entry</div>
+                <div class="panel-body">
+
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Width" class="control-label"></label>
+                            <input asp-for="Receivable.Width" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.MechanicalData" class="control-label"></label>
+                            <input asp-for="Receivable.MechanicalData" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.Drawing" class="control-label"></label>
+                            <input asp-for="Receivable.Drawing" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Receivable.NextAction" class="control-label"></label>
+                            <input asp-for="Receivable.NextAction" class="form-control"/>
+                        </div>
+                    </div>             
+
+                    
+
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">ACTIONS</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @foreach (var item in @Model.ActionButtons)
+                        {
+                            <input type="submit" name="submit" value='@item.ButtonText' class="btn col-lg-4 btn-primary"/>
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4"> </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#b-navbar-fg").hide();
+        $("#fetchMillDetails").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "/ReceivableView/Create?handler=Mills",
+                data: "millCode=" + $("#Receivable_MillId option:selected").text(),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+
+                    $("#MillName").val(response.name);
+
+                    $("#CPMPersonName").val(response.cpmPerson.name);
+                    $("#CPMPersonPhone").val(response.cpmPerson.primaryPhone);
+
+
+                    $("#ManagerPersonName").val(response.mangerPerson.name);
+                    $("#ManagerPersonPhone").val(response.mangerPerson.primaryPhone);
+
+                    $("#MechanicalName").val(response.mechanicalPerson.name);
+                    $("#MechanicalPhone").val(response.mechanicalPerson.primaryPhone);
+
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+
+        });
+
+        // on dropdown value change
+        $("#Receivable_CPMId").change(function () {
+            poplatePersonDetails();
+            
+        });
+    });
+
+    function poplatePersonDetails() {
+
+        $.ajax({
+            type: "GET",
+            url: "/ReceivableView/Create?handler=CPMDetails",
+            data: "cpmId=" + $("#Receivable_CPMId option:selected").val(),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+
+                $("#Receivable_CPMPerson_PrimaryPhone").val(response);
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+    function _prepareJson(btnText) {
+
+        if (btnText.toLowerCase() == 'cancel')
+            _cancel();
+        else {
+            var jsonOrder = _details();
+            var millId = $("#Receivable_MillId option:selected").val();
+
+            var receivableViewModel = {
+                "MillJson": millId,
+                "ReceivableJson": jsonOrder,
+                "buttonText": btnText,
+            };
+
+            $.ajax({
+                url: "/ReceivableView/Create?handler=Receivable",
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                headers: {
+                    RequestVerificationToken:
+                        $('input:hidden[name="__RequestVerificationToken"]').val()
+                },
+                data: JSON.stringify(receivableViewModel)
+            })
+                .done(function (result) {
+                    window.location.href = '/ReceivableView/Index';
+                });
+        }
+
+    }
+
+    function _details() {
+       // $("#CreateViewModel_PaperMillProfile_RegionId option:selected").val();
+        var regionId = $("#ReceivableViewModel_Receivable_RegionId option:selected").val();
+        var cPMId = $("#ReceivableViewModel_Receivable_CPMId option:selected").val();
+        var receiveableUpToDate = $("#ReceivableViewModel_Receivable_ReceiveableUpToDate").val();
+        var currentLessThen30Days = $("#ReceivableViewModel_Receivable_CurrentLessThen30Days").val();
+        var rec31To60 = $("#ReceivableViewModel_Receivable_Rec31To60").val();
+        var rec61To90 = $("#ReceivableViewModel_Receivable_Rec61To90").val();
+        var rec90Plus = $("#ReceivableViewModel_Receivable_Rec90Plus").val();
+        var almostDead = $("#ReceivableViewModel_Receivable_AlmostDead").val();
+
+        var obj = { RegionId: regionId, CPMId: cPMId, ReceiveableUpToDate: receiveableUpToDate, CurrentLessThen30Days: currentLessThen30Days, Rec31To60: rec31To60, Rec61To90: rec61To90, Rec90Plus: rec90Plus, AlmostDead: almostDead};
+        var jsonOrder = JSON.stringify(obj);
+
+        return jsonOrder;
+    }
+
+
+
+    function _cancel() {
+
+         //var url = '@Url.Action("Details", "Branch", new { id = "__id__" })';
+        window.location.href = '/ConsignmentView/Index';
+    }
+</script>

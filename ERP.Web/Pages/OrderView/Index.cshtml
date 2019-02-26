@@ -1,0 +1,89 @@
+﻿@page
+@model ERP.Pages.OrderView.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Fabric)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Mill)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].AmountEachPiece)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].ConsPcsYear)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].ConsAmtYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].NextOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].NextOrderCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Order[0].IsActive)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Order)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fabric.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mill.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountEachPiece)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsPcsYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsAmtYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NextOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NextOrderCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    @*<a asp-page="./Details" asp-route-id="@item.Id">Details</a> |*@
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

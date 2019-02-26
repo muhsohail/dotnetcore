@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ERP</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/mvc-grid.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/mvc-grid.css" />
+    </environment>
+</head>
+<body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ERP</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Inventory Management<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/PaperMillProfileView/Index">Manage Paper Mill Profile Details</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><a href="/ProductRateView/Index">Manage Product Rate</a></li>
+
+                                }
+                                <li><a href="/ReceivableView/Index">Manage Receivable</a></li>
+                                <li><a href="/ConsignmentView/Index">Manage Consignment</a></li>
+                                <li><a href="/MillView/Index">Manage Mill</a></li>
+                                <li><a href="/DailyStockView/Index">Manage Daily Stock</a></li>
+                            </ul>
+                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Setup Data<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Product/Index">Manage Fabric</a></li>
+                                    <li><a href="/CityView/Index">Manage City</a></li>
+                                    <li><a href="/DesignationView/Index">Manage Designation</a></li>
+                                    <li><a href="/PersonView/Index">Manage Person</a></li>
+                                    <li><a href="/PersonView/Index">Manage Region</a></li>
+                                    <li><a href="/StatusView/Index">Manage Status</a></li>
+
+                                    <li><a href="/ProductType/Index">Manage Type</a></li>
+
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Reports/GenerateReportByFormingWire">View Reports</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Management<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/User/Index">Manage Users</a></li>
+                                    <li><a href="/ApplicationRole/Index">Manage Roles</a></li>
+                                </ul>
+                            </li>
+                        }
+
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+
+    }
+
+    @await Component.InvokeAsync("NToastNotify")
+
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+        @RenderBody()
+
+
+        <script src="~/js/mvc-grid.js"></script>
+        <script>
+            [].forEach.call(document.getElementsByClassName('mvc-grid'), function (element) {
+                new MvcGrid(element);
+            });
+        </script>
+
+        <hr />
+        <footer>
+            <p>&copy; 2018 - ERP</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+        @*<script src="~/js/mvc-grid.js" asp-append-version="true"></script>*@
+        <script src="~/lib/jquery/dist/mvc-grid.js"></script>
+
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <link rel="stylesheet" href="~/css/mvc-grid.css" />
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

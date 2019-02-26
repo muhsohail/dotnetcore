@@ -1,0 +1,78 @@
+﻿@page
+@model ERP.Pages.OrderView.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Fabric)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Fabric.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Mill)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Mill.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.Region)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.Region.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.AmountEachPiece)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.AmountEachPiece)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.ConsPcsYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.ConsPcsYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.ConsAmtYear)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.ConsAmtYear)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.NextOrder)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.NextOrder)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.NextOrderCount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.NextOrderCount)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order.IsActive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Order.IsActive)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Order.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

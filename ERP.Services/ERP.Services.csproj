@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ERP.EntityFramework\ERP.EntityFramework.csproj" />
+    <ProjectReference Include="..\ERP.Models\ERP.Models.csproj" />
+  </ItemGroup>
+
+</Project>

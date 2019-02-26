@@ -1,0 +1,341 @@
+﻿@using System.Linq;
+@model ERP.ViewModels.Reports.ReportsViewModel
+@{
+    ViewData["Title"] = "GenerateReportByFormingWire";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.PieChartModels.Select(x => x.FabricCode).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.PieChartModels.Select(x => x.Count).ToList());
+    ViewData["Title"] = "Pie Chart";
+
+
+    var pieChartByMillXLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.PieChartByMillCode.Select(x => x.FabricCode).ToList());
+    var pieChartByMillYLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.PieChartByMillCode.Select(x => x.Count).ToList());
+
+    var byRegionXLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.PieChartByRegion.Select(x => x.FabricCode).ToList());
+    var byRegionYLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.PieChartByRegion.Select(x => x.Count).ToList());
+
+}
+
+<h2>Report By Forming Wire</h2>
+<div class="container">
+    <div class="panel-group">
+        <form method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Report Criteria</div>
+                <div class="panel-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <select asp-for="@Model.SelectedReportId" class="form-control" asp-items="ViewBag.ReportsId"></select>
+                        </div>
+
+                        <div class="form-group">
+
+                            <input type="submit" name="response" value="Generate Report" formaction=@Url.Action("generatereportbyformingwire1", Model.SelectedReportId) formmethod="post" class="btn btn-default" />
+                            ,
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Report Result </div>
+                <div class="panel-body">
+                    <input type="submit" name="Export" value="Export" formaction=@Url.Action("ExportToExcel", Model.SelectedReportId) formmethod="post" class="btn btn-default" />
+                    @if (Model != null)
+                    {
+                        @(Html
+                                                                                                .Grid(Model.FormingWireReportViewModels)
+                                                                                                .Build(columns =>
+                                                                                                {
+                                                                                                    columns.Add(model => model.FabricType).Titled("FabricType");
+                                                                                                    columns.Add(model => model.GSM).Titled("GSM");
+                                                                                                    columns.Add(model => model.Length).Titled("Length");
+
+                                                                                                    columns.Add(model => model.MillCode).Titled("MillCode");
+                                                                                                    columns.Add(model => model.Region).Titled("Region");
+                                                                                                    columns.Add(model => model.Width).Titled("Width");
+                                                                                                })
+                                                                                                .Empty("No data found")
+                                                                                                .Filterable()
+                                                                                                .Sortable()
+                                                                                                .Pageable()
+                        )
+                    }
+                </div>
+            </div>
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Forming Wires Pie Chart By Fabric Type</div>
+                <div class="panel-body">
+
+                    <div class="chart-container">
+                        <canvas id="chart" style="width:100%; height:500px"></canvas>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Forming Wires Pie Chart By Mill Code</div>
+                <div class="panel-body">
+
+                    <div class="chart-container">
+                        <canvas id="chart1" style="width:100%; height:500px"></canvas>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Forming Wires Pie Chart By Region</div>
+                <div class="panel-body">
+
+                    <div class="chart-container">
+                        <canvas id="chart2" style="width:100%; height:500px"></canvas>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+        $(function () {
+    var chartName = "chart";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabels),
+                datasets: [{
+                    label: "Drinks Chart",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(YValues)
+    }]
+            };
+
+var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+}],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+       var myChart = new  Chart(ctx, {
+                options: options,
+                data: data,
+                type:'pie'
+
+            });
+    });
+
+
+
+    // Pie Chart By Mill Code
+            $(function () {
+    var chartName = "chart1";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(pieChartByMillXLabels),
+                datasets: [{
+                    label: "Drinks Chart",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(pieChartByMillYLabels)
+    }]
+            };
+
+var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+}],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+       var myChart = new  Chart(ctx, {
+                options: options,
+                data: data,
+                type:'pie'
+
+            });
+    });
+
+    // By Region
+
+    $(function () {
+    var chartName = "chart2";
+        var ctx = document.getElementById(chartName).getContext('2d');
+        var data = {
+                labels: @Html.Raw(byRegionXLabels),
+                datasets: [{
+                    label: "Drinks Chart",
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255, 0, 0)',
+                        'rgba(0, 255, 0)',
+                        'rgba(0, 0, 255)',
+                        'rgba(192, 192, 192)',
+                        'rgba(255, 255, 0)',
+                        'rgba(255, 0, 255)'
+                    ],
+                    borderWidth: 1,
+                    data: @Html.Raw(byRegionYLabels)
+    }]
+            };
+
+var options = {
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: true,
+                            color: "rgba(255,99,164,0.2)"
+                        }
+}],
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            beginAtZero: true
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            };
+
+       var myChart = new  Chart(ctx, {
+                options: options,
+                data: data,
+                type:'pie'
+
+            });
+        });
+</script>

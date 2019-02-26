@@ -1,0 +1,101 @@
+﻿@page
+@model ERP.Areas.Application.Pages.Product.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Product (Fabric)</h2>
+<hr />
+
+
+<div class="container">
+    <div class="panel-group">
+        <form method="post">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Mill Details</div>
+                <div class="panel-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Fabric.FabricCodeId" class="control-label"></label>
+                            <select asp-for="Fabric.FabricCodeId" class="form-control" asp-items="ViewBag.FabricCodeId"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Fabric.Description" class="control-label"></label>
+                            <input asp-for="Fabric.Description" class="form-control" />
+                            <span asp-validation-for="Fabric.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Fabric.FabricTypeId" class="control-label"></label>
+                            <select asp-for="Fabric.FabricTypeId" class="form-control" asp-items="ViewBag.FabricTypeId"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">Actions</div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        poplateFabricDesc();
+
+
+        $("#Fabric_FabricCodeId").change(function () {
+            poplateFabricDesc();
+        });
+    
+    
+    });
+
+    function poplateFabricDesc() {
+
+        $.ajax({
+            type: "GET",
+            url: "/Product/Create?handler=FabricDescription",
+            data: "faricId=" + $("#Fabric_FabricCodeId option:selected").val(),
+            contentType: "application/json",
+            dataType: "json",
+            success: function (response) {
+
+                $("#Fabric_Description").val(response);
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+    }
+</script>
+
+
